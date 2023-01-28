@@ -105,3 +105,11 @@ deploy:
   type: git
   repo: git@github.com:danyfield/danyfield.github.io.git
   branch: master
+
+# Search
+search:
+  path: search.xml
+  # post:文章范围、page:页面范围、all:覆盖所有
+  field: all
+  content: true # 内容是否包含每一篇文章的全部内容
+  template:  # ./search.xml 指定定制的XML模板
