@@ -1,12 +1,12 @@
-Mybatis
+### Mybatis
 
 #### CRUD
 
 ```
-id: 对应的userMapper中的方法名，即该sql语句需要调用的接口的某个方法名
-resultType: sql语句执行的返回值类型
+id: 		对应的userMapper中的方法名，即该sql语句需要调用的接口的某个方法名
+resultType: 	sql语句执行的返回值类型
 parameterType： userMapper中相应的方法传递的参数类型
-Select 需要写返回值类型，update、insert、delete则不需要写
+Select 		需要写返回值类型，update、insert、delete则不需要写
 ```
 
 `编写接口`
@@ -215,7 +215,7 @@ Spring实现AOP：
 
 ![](https://img-blog.csdnimg.cn/564a2e2fff9347a6a72cbfafd622a90d.png)
 
-引入中间位置的“第三方”即IOC容器，全部对象的控制权上缴给IOC容器使其起到“粘合剂”的作用，若其消失则对象与对象间会失去联系
+引入中间位置的“第三方”即IOC容器，全部对象的控制权上缴给IOC容器使其起到“粘合剂”的作用，若其消失则对象间失去联系
 
 ##### 控制反转名字的由来
 
