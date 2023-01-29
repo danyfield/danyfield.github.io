@@ -1,3 +1,9 @@
+---
+title: SSM笔记
+date: 2023-01-29 15:20:08
+tags: SSM
+---
+
 ### Mybatis
 
 #### CRUD
@@ -273,6 +279,7 @@ public class UserDaoImpl implements UserDao {
         System.out.println("默认获取用户数据");
     }
 }
+
 ```
 
 `UserService业务接口`
@@ -281,6 +288,7 @@ public class UserDaoImpl implements UserDao {
 public interface UserService {
     void getUser();
 }
+
 ```
 
 `UserServiceImpl业务实现类`
@@ -293,6 +301,7 @@ public class UserServiceImpl implements UserService {
         userDao.getUser();
     }
 }
+
 ```
 
 `测试`
@@ -305,6 +314,7 @@ public class MyTest {
         userService.getUser();
     }
 }
+
 ```
 
 #### HelloSpring
@@ -330,6 +340,7 @@ public class Hello {
                 '}';
     }
 }
+
 ```
 
 `编写xml配置文件`
@@ -353,6 +364,7 @@ public class Hello {
         <property name="str" value="Spring"/>
     </bean>
 </beans>
+
 ```
 
 `测试`
@@ -367,6 +379,7 @@ public class MyTest {
         System.out.println(hello.toString());
     }
 }
+
 ```
 
 #### IOC创建对象的方式
@@ -382,6 +395,7 @@ public class MyTest {
      <bean id="user" class="com.kuang.pojo.User">
          <constructor-arg index="0" value="狂神说Java"/>
      </bean>
+     
      ```
 
    - 类型
@@ -391,6 +405,7 @@ public class MyTest {
      <bean id="user" class="com.kuang.pojo.User">
          <constructor-arg type="java.lang.String" value="lifa"/>
      </bean>
+     
      ```
 
    - 参数名
@@ -400,6 +415,7 @@ public class MyTest {
      <bean id="user" class="com.kuang.pojo.User">
          <constructor-arg name="name" value="李发"/>
      </bean>
+     
      ```
 
 #### Bean
@@ -427,6 +443,7 @@ public class MyTest {
     <bean id="userT" class="com.kuang.pojo.UserT" name="user2 u2,u3;u4">
         <property name="name" value="黑心白莲"/>
     </bean>
+
 ```
 
 #### 测试实例
@@ -443,6 +460,7 @@ public class Address {
         this.address = address;
     }
 }
+
 ```
 
 ```java
@@ -456,6 +474,7 @@ public class Student {
     private String wife;
     private Properties info;
 }
+
 ```
 
 ```xml
@@ -521,6 +540,7 @@ public class Student {
             </props>
         </property>
     </bean>
+
 ```
 
 #### Bean的自动装配
@@ -537,6 +557,7 @@ Spring三种装配属性方式：1、在xml中显示配置；2、在java中显�
     <property name="cat" ref="cat" />
     <property name="dog" ref="dog" />
 </bean>
+
 ```
 
 `ByName自动装配`
@@ -546,6 +567,7 @@ Spring三种装配属性方式：1、在xml中显示配置；2、在java中显�
 <bean id="people" class="com.kuang.pojo.People" autowire="byName">
     <property name="name" value="小白莲" />
 </bean>
+
 ```
 
 `ByType自动装配`
@@ -555,6 +577,7 @@ Spring三种装配属性方式：1、在xml中显示配置；2、在java中显�
 <bean id="people" class="com.kuang.pojo.People" autowire="byType">
     <property name="name" value="小白莲"/>
 </bean>
+
 ```
 
 - ByName的时候，需要保证所有bean的id唯一，且该bean需要和自动注入的属性的set方法的值一致
@@ -565,6 +588,7 @@ Spring三种装配属性方式：1、在xml中显示配置；2、在java中显�
 ```xml
 <!--开启注解的支持    -->
 <context:annotation-config/>
+
 ```
 
 直接在属性上使用`@Autowired`即可，也可以在set方法上使用；使用Autowired就可以不用编写set方法，前提是自动配置属性在IOC存在，且符合名字ByName
@@ -578,6 +602,7 @@ public class People {
     private Dog dog;
     private String name;
 }
+
 ```
 
 #### 代理模式
@@ -591,6 +616,7 @@ public class People {
 public interface Rent {
     public void rent();
 }
+
 ```
 
 `真实角色`
@@ -602,6 +628,7 @@ public class Host implements Rent {
         System.out.println("房东出租房子！");
     }
 }
+
 ```
 
 `代理角色`
@@ -639,6 +666,7 @@ public class Proxy implements Rent {
         System.out.println("中介收取费用！");
     }
 }
+
 ```
 
 `客户端访问代理角色`
@@ -656,6 +684,7 @@ public class Client {
         proxy.rent();
     }
 }
+
 ```
 
 <font color=red>代理模式</font>可以使真实角色的操作更纯粹，不用关注公共的业务，公共业务交给代理角色，公共业务发生扩展的时候，方便集中管理；但此时一个真实角色就会产生一个代理角色，代码量会翻倍，开发效率会变低
@@ -673,6 +702,7 @@ public class Client {
 public interface Rent {
     public void rent();
 }
+
 ```
 
 ```java
@@ -681,6 +711,7 @@ public class Host implements Rent{
         System.out.println("房东要出租房子！");
     }
 }
+
 ```
 
 ```java
@@ -716,6 +747,7 @@ public class ProxyInvocationHandler implements InvocationHandler {
         System.out.println("中介收取费用！");
     }
 }
+
 ```
 
 ```java
@@ -733,6 +765,7 @@ public class Client {
         proxy.rent();
     }
 }
+
 ```
 
 - 一个动态代理类代理的是一个接口，一般就是对应的一类业务
@@ -805,6 +838,7 @@ hello：控制器
            <url-pattern>/</url-pattern>
        </servlet-mapping>
    </web-app>
+   
    ```
 
 4. 编写SpringMVC 的配置文件！名称：**springmvc-servlet.xml** : [servletname]-servlet.xml
@@ -816,18 +850,21 @@ hello：控制器
           xsi:schemaLocation="http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans.xsd">
    </beans>
+   
    ```
 
 5. 添加处理映射器
 
    ```xml
    <bean class="org.springframework.web.servlet.handler.BeanNameUrlHandlerMapping"/>
+   
    ```
 
 6. 添加处理器适配器
 
    ```xml
    <bean class="org.springframework.web.servlet.mvc.SimpleControllerHandlerAdapter"/>
+   
    ```
 
 7. 添加视图解析器
@@ -840,6 +877,7 @@ hello：控制器
        <!--后缀-->
        <property name="suffix" value=".jsp"/>
    </bean>
+   
    ```
 
 8. 编写要操作业务Controller ，要么实现Controller接口，要么增加注解；需要返回一个ModelAndView，装数据，封视图
@@ -862,6 +900,7 @@ hello：控制器
            return mv;
        }
    }
+   
    ```
 
 9. 将自己的类交给SpringIOC容器，注册bean
@@ -869,6 +908,7 @@ hello：控制器
    ```xml
    <!--Handler-->
    <bean id="/hello" class="com.kuang.controller.HelloController"/>
+   
    ```
 
 10. 写要跳转的jsp页面，显示ModelandView存放的数据以及正常页面
@@ -883,10 +923,10 @@ hello：控制器
                 ${msg}
             </body>
         </html>
+    
     ```
 
 11. 配置Tomcat 启动测试
-
 
 ##### 注解版
 
@@ -917,6 +957,7 @@ hello：控制器
            </resource>
        </resources>
    </build>
+   
    ```
 
 3. 在pom.xml文件引入相关的依赖：主要有Spring框架核心库、Spring MVC、servlet , JSTL等
@@ -955,6 +996,7 @@ hello：控制器
              <url-pattern>/</url-pattern>
          </servlet-mapping>
      </web-app>
+     
      ```
 
 5. 添加Spring MVC配置文件
@@ -996,6 +1038,7 @@ hello：控制器
            <property name="suffix" value=".jsp" />
        </bean>
    </beans>
+   
    ```
 
    在视图解析器中把所有视图存放在/WEB-INF/目录下，保证视图安全，这个目录下的文件，客户端不能直接访问
@@ -1021,6 +1064,7 @@ hello：控制器
            return "hello";
        }
    }
+   
    ```
 
 7. 创建视图层
@@ -1037,6 +1081,7 @@ hello：控制器
        ${msg}
    </body>
    </html>
+   
    ```
 
 8. 配置Tomcat运行
@@ -1055,6 +1100,7 @@ public class ControllerTest1 implements Controller {
         return mv;
     }
 }
+
 ```
 
 ##### 通过ModelMap
@@ -1068,6 +1114,7 @@ public String hello(@RequestParam("username") String name, ModelMap model){
     System.out.println(name);
     return "hello";
 }
+
 ```
 
 ##### 通过Model
@@ -1081,6 +1128,7 @@ public String hello(@RequestParam("username") String name, Model model){
     System.out.println(name);
     return "test";
 }
+
 ```
 
 ##### 对比
@@ -1089,6 +1137,7 @@ public String hello(@RequestParam("username") String name, Model model){
 Model		只有几个方法只适合于储存数据，简化了对于Model对象的操作和理解
 ModelMap	除实现自身的方法，也继承LinkedMap的方法和特性		
 ModelAndView	可在储存数据的同时设置返回的逻辑视图，控制展示层的跳转
+
 ```
 
 ### 整合SSM
@@ -1112,6 +1161,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
 (1,'Java',1,'从入门到放弃'),
 (2,'MySQL',10,'从删库到跑路'),
 (3,'Linux',5,'从进门到进牢');
+
 ```
 
 #### 基本环境搭建
@@ -1190,6 +1240,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            <version>1.18.22</version>
        </dependency>
    </dependencies>
+   
    ```
 
 3. Maven资源过滤设置
@@ -1215,6 +1266,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            </resource>
        </resources>
    </build>
+   
    ```
 
 4. 搭建基本结构和配置框架
@@ -1236,6 +1288,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
              "http://mybatis.org/dtd/mybatis-3-config.dtd">
      <configuration>
      </configuration>
+     
      ```
 
    - applicationContext.xml
@@ -1247,6 +1300,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
             xsi:schemaLocation="http://www.springframework.org/schema/beans
              http://www.springframework.org/schema/beans/spring-beans.xsd">
      </beans>
+     
      ```
 
 #### Mybatis层编写
@@ -1258,6 +1312,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
    jdbc.url=jdbc:mysql://localhost:3306/ssmbuild?useSSL=true&useUnicode=true&characterEncoding=utf8
    jdbc.username=root
    jdbc.password=123456
+   
    ```
 
 2. IDEA关联数据库
@@ -1277,6 +1332,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            <mapper resource="com/kuang/dao/BookMapper.xml"/>
        </mappers>
    </configuration>
+   
    ```
 
 4. 编写数据库对应的实体类 com.kuang.pojo.Books
@@ -1295,6 +1351,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        private int bookCounts;
        private String detail;
    }
+   
    ```
 
 5. 编写Dao层的 Mapper接口
@@ -1315,6 +1372,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        //查询全部Book,返回list集合
        List<Books> queryAllBook();
    }
+   
    ```
 
 6. 编写接口对应的 Mapper.xml 文件。需要导入MyBatis的包
@@ -1354,6 +1412,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            SELECT * from ssmbuild.books
        </select>
    </mapper>
+   
    ```
 
 7. 编写Service层的接口和实现类
@@ -1375,6 +1434,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        //查询全部Book,返回list集合
        List<Books> queryAllBook();
    }
+   
    ```
 
    ```java
@@ -1404,6 +1464,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            return bookMapper.queryAllBook();
        }
    }
+   
    ```
 
 #### Spring层
@@ -1461,6 +1522,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            <property name="basePackage" value="com.kuang.dao"/>
        </bean>
    </beans>
+   
    ```
 
 3. **Spring整合service层**
@@ -1511,6 +1573,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            <aop:advisor advice-ref="txAdvice" pointcut-ref="txPointcut"/>
        </aop:config>
    </beans>
+   
    ```
 
    Spring就是一个大杂烩，一个容器！
@@ -1560,6 +1623,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            <session-timeout>15</session-timeout>
        </session-config>
    </web-app>
+   
    ```
 
 2. **spring-mvc.xml**
@@ -1590,6 +1654,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        <!-- 4.扫描web相关的bean -->
        <context:component-scan base-package="com.kuang.controller" />
    </beans>
+   
    ```
 
 3. **Spring配置整合文件，applicationContext.xml**
@@ -1604,6 +1669,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        <import resource="spring-service.xml"/>
        <import resource="spring-mvc.xml"/>
    </beans>
+   
    ```
 
 **配置文件，暂时结束！Controller 和 视图层编写**
@@ -1624,6 +1690,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            return "allBook";
        }
    }
+   
    ```
 
 2. 编写首页 **index.jsp**
@@ -1657,6 +1724,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
                </h3>
            </body>
        </html>
+   
    ```
 
 3. 书籍列表页面 **allbook.jsp**
@@ -1717,6 +1785,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
                    </div>
                </div>
            </div>
+   
    ```
 
 4. BookController 类编写 ， 方法二：添加书籍
@@ -1732,6 +1801,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        bookService.addBook(books);
        return "redirect:/book/allBook";
    }
+   
    ```
 
 5. 添加书籍页面：**addBook.jsp**
@@ -1764,6 +1834,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            <input type="submit" value="添加">
        </form>
    </div>
+   
    ```
 
 6. BookController 类编写 ， 方法三：修改书籍
@@ -1784,6 +1855,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        model.addAttribute("books", books);
        return "redirect:/book/allBook";
    }
+   
    ```
 
 7. 修改书籍页面 **updateBook.jsp**
@@ -1817,6 +1889,7 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
            <input type="submit" value="提交"/>
        </form>
    </div>
+   
    ```
 
 8. BookController 类编写 ， 方法四：删除书籍
@@ -1827,8 +1900,10 @@ INSERT  INTO `books`(`bookID`,`bookName`,`bookCounts`,`detail`) VALUES
        bookService.deleteBookById(id);
        return "redirect:/book/allBook";
    }
+   
    ```
 
 #### 项目结构
 
 ![](https://s1.ax1x.com/2023/01/29/pSa4cW9.png)
+

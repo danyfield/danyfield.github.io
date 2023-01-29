@@ -1,3 +1,9 @@
+---
+title: hexo搭建笔记
+date: 2023-01-29 15:18:02
+tags: hexo
+---
+
 ### Hexo初步搭建
 
 #### Hexo简介
@@ -121,16 +127,19 @@ deploy:
   # 若后续部署失败，可以尝试更改为ssh方式,将上述链接替换成下面：
   # git@github.com:YourgithubName/YourgithubName.github.io.git（推荐）
   branch: master
+
 ```
 
 安装deploy-git，即部署命令
 
 ```
 npm install hexo-deployer-git --save
+
 ```
 
 ```
 hexo clean && hexo g && hexo d
+
 ```
 
 其中`hexo clean`表示清除之前生成的东西，可以不加
@@ -153,18 +162,21 @@ hexo clean && hexo g && hexo d
 
 ```
 hexo clean && hexo g && hexo d
+
 ```
 
 过一段时间输入域名就可以看到网站了；接下来可以正式开始写文章了
 
 ```
 hexo new newpapername
+
 ```
 
 然后在source/_post中打开markdown文件开始编辑，写完后输入下列指令可以看到已经更新
 
 ```
 hexo clean && hexo g && hexo d
+
 ```
 
 ### Hexo基本配置
@@ -223,6 +235,7 @@ hexo clean && hexo g && hexo d
 
    ```
    git clone git@github.com:YourgithubName/YourgithubName.github.io.git
+   
    ```
 
    将其克隆到本地，把除了.git 文件夹外的所有文件都删掉，把之前我们写的博客源文件全部复制过来，除了`.deploy_git`。复制过来的源文件应该有一个`.gitignore`，用来忽略一些不需要的文件，如果没有的话，自己新建一个，在里面写上如下，表示这些类型文件不需要git：
@@ -235,6 +248,7 @@ hexo clean && hexo g && hexo d
    node_modules/
    public/
    .deploy*/
+   
    ```
 
    注意，若之前克隆过theme中的主题文件，则应把主题文件中的`.git`删掉
@@ -243,6 +257,7 @@ hexo clean && hexo g && hexo d
    git add .
    git commit –m "add branch"
    git push 
+   
    ```
 
    这样就上传完了，可以去github上看一看新分支有没有上传上去，其中`node_modules`、`public`、`db.json`已经被忽略掉了，没有关系，不需要上传的，因为在别的电脑上需要重新输入命令安装。
@@ -278,6 +293,7 @@ npm install hexo-deployer-git --save
 
 #生成，部署
 hexo g && hexo d
+
 ```
 
 #### coding page部署实现国内外分流
@@ -296,12 +312,14 @@ hexo g && hexo d
      repo: 
        coding: git@git.coding.net:yourgithubname/yourgithubname.git,master
        github: git@github.com:yourgithubname/yourgithubname.github.io.git,master
+   
    ```
 
 4. 部署
 
    ```
    hexo g && hexo d
+   
    ```
 
 5. 开启coding pages服务，绑定域名
@@ -325,6 +343,7 @@ hexo g && hexo d
    ```
    npm install hexo-generation-sitemap --save
    npm install hexo-generation-baidu-sitemap --save
+   
    ```
 
    在根目录下的_config.xml`中看看url有没有改成自己的
