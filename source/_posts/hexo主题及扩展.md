@@ -46,3 +46,30 @@ tags: "hexo"
 
 ##### 标签外挂
 
+##### 标题栏标签完善
+
+hexo自带的标签包括分类，首页，标签等，且其默认配置了对应的目录：
+
+![](https://s1.ax1x.com/2023/01/30/pSdTrqI.png)
+
+在source目录执行下面命令，建立标签页，其他的categories等也是相同的操作
+
+```
+hexo new page "tags"
+```
+
+在生成路径的文件中增加type属性，内容与title相同并用双引号括住
+
+```
+title: tags
+date: 2023-01-30 11:27:08
+type: "tags"
+```
+
+打开主题路径下的配置文件配置对应的标签及相应图标：
+
+![](https://s1.ax1x.com/2023/01/30/pSdTzLR.png)
+
+图标可以在阿里图标官网选择：[iconfont-阿里巴巴矢量图标库](https://www.iconfont.cn/)
+
+找到对应的图标，加入到购物车，添加至项目，在butterfly文件的source/css文件下，将红色标注的全部移动过去
