@@ -3,17 +3,17 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: dany's blog
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
-language: en
+author: dany
+language: zh-CN
 timezone: ''
 
 # URL
 ## Set your site url here. For example, if you use GitHub Page, set url as 'https://username.github.io/project'
-url: http://example.com
+url: https://danyfield.github.io
 permalink: :year/:month/:day/:title/
 permalink_defaults:
 pretty_urls:
@@ -105,11 +105,3 @@ deploy:
   type: git
   repo: git@github.com:danyfield/danyfield.github.io.git
   branch: master
-
-# Search
-search:
-  path: search.xml
-  # post:文章范围、page:页面范围、all:覆盖所有
-  field: all
-  content: true # 内容是否包含每一篇文章的全部内容
-  template:  # ./search.xml 指定定制的XML模板

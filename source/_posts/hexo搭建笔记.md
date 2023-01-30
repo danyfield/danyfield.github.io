@@ -1,7 +1,7 @@
 ---
 title: hexo搭建笔记
 date: 2023-01-29 15:18:02
-tags: hexo
+tags: "hexo"
 ---
 
 ### Hexo初步搭建

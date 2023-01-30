@@ -1,7 +1,7 @@
 ---
 title: springboot笔记
 date: 2023-01-29 15:32:37
-tags: springboot
+tags: "springboot"
 ---
 
 #### 第一个SpringBoot程序

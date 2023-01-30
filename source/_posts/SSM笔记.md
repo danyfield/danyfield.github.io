@@ -1,7 +1,7 @@
 ---
 title: SSM笔记
 date: 2023-01-29 15:20:08
-tags: SSM
+tags: "SSM"
 ---
 
 ### Mybatis

@@ -1,7 +1,7 @@
 ---
 title: markdown语法笔记
 date: 2023-01-29 15:19:21
-tags: markdown
+tags: "markdown"
 ---
 
 - 一级标题：（#+空格+对应内容）（ctrl+1）（以此类推）（使用ctrl+或ctrl-调整标题等级）
