@@ -72,4 +72,15 @@ type: "tags"
 
 图标可以在阿里图标官网选择：[iconfont-阿里巴巴矢量图标库](https://www.iconfont.cn/)
 
-找到对应的图标，加入到购物车，添加至项目，在butterfly文件的source/css文件下，将红色标注的全部移动过去
+找到对应的图标，加入到购物车，添加至项目，将项目下载至本地，在butterfly文件的source/css文件下，将红色标注的全部移动过去
+
+![](https://moonshuo.cn//images/202211011545280.png)
+
+将原css目录下的mouse.css（先前添加的鼠标样式）修改为style.css（将hexo配置文件中的inject参数也做对应修改）；将该iconfont.css中的内容添加进去：
+
+![](https://s1.ax1x.com/2023/01/30/pSwYKbV.png)
+
+调整标题栏格式，重新部署即可：
+
+![](https://s1.ax1x.com/2023/01/30/pSwYlUU.png)
+
