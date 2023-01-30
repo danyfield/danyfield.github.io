@@ -2,6 +2,7 @@
 title: hexo文档
 date: 2023-01-30 09:49:00
 tags: "hexo"
+categories: "hexo"
 ---
 
 ### 配置

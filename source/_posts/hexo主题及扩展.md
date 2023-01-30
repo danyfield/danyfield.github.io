@@ -2,6 +2,7 @@
 title: hexo主题及扩展
 date: 2023-01-30 09:01:38
 tags: "hexo"
+categories: "hexo"
 ---
 
 #### Butterfly主题配置
@@ -184,8 +185,6 @@ npm install hexo-wordcount --save
 
 在butterfly的配置文件中将wordcount的enable参数设置为true
 
-##### 标签外挂
-
 ##### 标题栏标签完善
 
 hexo自带的标签包括分类，首页，标签等，且其默认配置了对应的目录：
@@ -223,4 +222,46 @@ type: "tags"
 调整标题栏格式，重新部署即可：
 
 ![](https://s1.ax1x.com/2023/01/30/pSwYlUU.png)
+
+##### 设置透明度
+
+在`style.css`中插入类似下列代码，背景图片最好与主图是同一张图片，否则会显得突兀：
+
+```css
+/* 背景样式 */
+#web_bg {
+	background-image: url("../img/index.jpg"),
+		linear-gradient(60deg, rgba(255, 165, 150, 0.5) 5%, rgba(0, 228, 255, 0.35))
+}
+
+/* 侧边栏个人信息卡片动态渐变色 */
+#aside-content>.card-widget {
+	background: linear-gradient(-45deg,
+			#e8d8b9,
+			#eccec5,
+			#a3e9eb,
+			#bdbdf0,
+			#eec1ea);
+	box-shadow: 0 0 5px rgb(66, 68, 68);
+	position: relative;
+	background-size: 400% 400%;
+	-webkit-animation: Gradient 10s ease infinite;
+	-moz-animation: Gradient 10s ease infinite;
+	animation: Gradient 10s ease infinite !important;
+}
+
+/* 个人信息Follow me按钮 */
+#aside-content>.card-widget.card-info>#card-info-btn {
+	background-color: #3eb8be;
+	border-radius: 8px;
+}
+
+#aside-content>.sticky_layout>.card-widget,
+/*分类页面*/
+.layout>#page,
+/*时间轴页面*/
+.layout>#archive {
+	background: rgba(255, 255, 255, .9);
+}
+```
 
