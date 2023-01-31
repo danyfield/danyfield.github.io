@@ -1,8 +1,9 @@
 ---
-title: hexo主题及扩展
+title: butterfly主题扩展
 date: 2023-01-30 09:01:38
-tags: "hexo"
+tags: "butterfly"
 categories: "hexo"
+sticky: 1
 ---
 
 #### Butterfly主题配置
@@ -176,6 +177,20 @@ error_404:
   #图片的背景
   background: 链接地址
 ```
+
+##### 主页文章节选
+
+主页文章节选只支持自动节选和文章页description，修改主题配置文件：
+
+```yaml
+index_post_content:
+  method: 3	#1.只显示description，2.优先description，3.只显示自动节选，4.不显示文章内容
+  length: 500 # if you set method to 2 or 3, the length need to config
+```
+
+##### 文章封面
+
+文章封面的获取顺序`Front-matter的cover`>`配置文件的default_cover`
 
 ##### 字数统计
 
