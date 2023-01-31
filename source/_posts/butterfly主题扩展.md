@@ -240,7 +240,7 @@ type: "tags"
 
 ##### 设置透明度
 
-在`style.css`中插入类似下列代码，背景图片最好与主图是同一张图片，否则会显得突兀：
+在`style.css`中插入类似下列代码，背景图片最好与主图是同一张图片，否则会显得突兀，关于渐变色的设置可以在[Gradients](https://uigradients.com/#DigitalWater)中选择：
 
 ```css
 /* 背景样式 */
@@ -278,5 +278,55 @@ type: "tags"
 .layout>#archive {
 	background: rgba(255, 255, 255, .9);
 }
+```
+
+##### 页脚设置
+
+进入`….themes\butterfly\source\css\_layout\footer.styl`，把blue那行删掉
+
+###### 更改底层文字
+
+在js文件夹下新建foot.js文件，复制下列代码并添加[jquery.js文件](https://code.jquery.com/jquery-3.6.1.min.js)：
+
+```js
+//动态心跳
+$(document).ready(function(e){
+    $('.copyright').html('©2023 <i class="fa-fw fas fa-heartbeat card-announcement-animation cc_pointer"></i> By dany\'s blog');
+})
+
+$(document).ready(function(e){
+    show_date_time();
+})
+
+//本站运行时间
+function show_date_time(){
+$('.framework-info').html('本站已运行<span id="span_dt_dt" style="color: #fff;"></span>');
+window.setTimeout("show_date_time()", 1000);
+BirthDay=new Date("1/28/2023 0:0:0");
+today=new Date();
+timeold=(today.getTime()-BirthDay.getTime());
+sectimeold=timeold/1000
+secondsold=Math.floor(sectimeold);
+msPerDay=24*60*60*1000
+e_daysold=timeold/msPerDay
+daysold=Math.floor(e_daysold);
+e_hrsold=(e_daysold-daysold)*24;
+hrsold=Math.floor(e_hrsold);
+e_minsold=(e_hrsold-hrsold)*60;
+minsold=Math.floor((e_hrsold-hrsold)*60);
+seconds=Math.floor((e_minsold-minsold)*60);
+span_dt_dt.innerHTML='<font style=color:#3eb8be>'+daysold+'</font> 天 <font style=color:#f391a9>'+hrsold+'</font> 时 <font style=color:#fdb933>'+minsold+'</font> 分 <font style=color:#a3cf62>'+seconds+'</font> 秒';
+}
+```
+
+在主题配置文件中配置foot和jquery文件：
+
+```yaml
+inject:
+  head:
+    - <link rel="stylesheet" href="/css/style.css">
+  bottom:
+    - <script src="/js/jquery.js"></script>
+    - <script src="/js/foot.js"></script>
 ```
 
