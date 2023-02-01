@@ -3,7 +3,6 @@ title: butterfly主题扩展
 date: 2023-01-30 09:01:38
 tags: "butterfly"
 categories: "hexo"
-sticky: 1
 ---
 
 #### Butterfly主题配置
@@ -263,6 +262,48 @@ type: "tags"
 	-webkit-animation: Gradient 10s ease infinite;
 	-moz-animation: Gradient 10s ease infinite;
 	animation: Gradient 10s ease infinite !important;
+}
+
+@-webkit-keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@-moz-keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+@keyframes Gradient {
+	0% {
+		background-position: 0% 50%;
+	}
+
+	50% {
+		background-position: 100% 50%;
+	}
+
+	100% {
+		background-position: 0% 50%;
+	}
 }
 
 /* 个人信息Follow me按钮 */
