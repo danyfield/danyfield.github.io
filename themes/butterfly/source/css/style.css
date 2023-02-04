@@ -25,59 +25,67 @@ i:hover,
 
 /* 标题栏标签图标样式 */
 @font-face {
-    font-family: "iconfont"; /* Project id 3870682 */
-    src: url('iconfont.woff2?t=1675073034528') format('woff2'),
-         url('iconfont.woff?t=1675073034528') format('woff'),
-         url('iconfont.ttf?t=1675073034528') format('truetype');
-  }
-  
-  .iconfont {
-    font-family: "iconfont" !important;
-    font-size: 16px;
-    font-style: normal;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  
-  .icon-mulu:before {
-    content: "\e890";
-  }
-  
-  .icon-shipin:before {
-    content: "\e657";
-  }
-  
-  .icon-wp-sj:before {
-    content: "\e72a";
-  }
-  
-  .icon-yinle:before {
-    content: "\e600";
-  }
-  
-  .icon-xiuxiankafeiyule:before {
-    content: "\e656";
-  }
-  
-  .icon-biaoqian:before {
-    content: "\e63d";
-  }
-  
-  .icon-fenlei:before {
-    content: "\e62f";
-  }
-  
-  .icon-guanyu:before {
-    content: "\e655";
-  }
-  
-  .icon-shijianxian:before {
-    content: "\e674";
-  }
-  
-  .icon-shouye:before {
-    content: "\e751";
-  }
+  font-family: "iconfont"; /* Project id 3870682 */
+  src: url('iconfont.woff2?t=1675494010927') format('woff2'),
+       url('iconfont.woff?t=1675494010927') format('woff'),
+       url('iconfont.ttf?t=1675494010927') format('truetype');
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-wendang:before {
+  content: "\e602";
+}
+
+.icon-lianjie:before {
+  content: "\e601";
+}
+
+.icon-mulu:before {
+  content: "\e890";
+}
+
+.icon-shipin:before {
+  content: "\e657";
+}
+
+.icon-wp-sj:before {
+  content: "\e72a";
+}
+
+.icon-yinle:before {
+  content: "\e600";
+}
+
+.icon-xiuxiankafeiyule:before {
+  content: "\e656";
+}
+
+.icon-biaoqian:before {
+  content: "\e63d";
+}
+
+.icon-fenlei:before {
+  content: "\e62f";
+}
+
+.icon-guanyu:before {
+  content: "\e655";
+}
+
+.icon-shijianxian:before {
+  content: "\e674";
+}
+
+.icon-shouye:before {
+  content: "\e751";
+}
   
 /* 背景样式 */
 /* #web_bg {
@@ -150,11 +158,13 @@ i:hover,
 }
 
 #aside-content>.sticky_layout>.card-widget,
+/*文章页面*/
+.layout>#post,
 /*分类页面*/
 .layout>#page,
 /*时间轴页面*/
 .layout>#archive {
-	background: rgba(255, 255, 255, .85);
+	background: rgba(255, 255, 255, .75);
 }
 
 /* 顶栏常驻 */
