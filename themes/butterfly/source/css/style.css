@@ -205,12 +205,12 @@ ul.menus_item_child {
 #nav a:hover {
 	background: var(--anzhiyu-main);
 	transition: 0.3s;
-  }
+}
   
-  #nav-totop:hover .totopbtn i {
+#nav-totop:hover .totopbtn i {
 	opacity: 1;
-  }
-  #nav-totop #percent {
+}
+#nav-totop #percent {
 	font-size: 12px;
 	background: var(--anzhiyu-white);
 	color: var(--anzhiyu-main);
@@ -221,66 +221,66 @@ ul.menus_item_child {
 	justify-content: center;
 	align-items: center;
 	transition: 0.3s;
-  }
-  .nav-fixed #nav-totop #percent,
-  .page #nav-totop #percent {
+}
+.nav-fixed #nav-totop #percent,
+.page #nav-totop #percent {
 	background: var(--font-color);
 	color: var(--card-bg);
 	font-size: 13px;
-  }
+}
   
-  #nav-totop {
+#nav-totop {
 	width: 35px;
-  }
-  #page-header:not(.is-top-bar) #percent {
+}
+#page-header:not(.is-top-bar) #percent {
 	transition: 0.3s;
-  }
-  #page-header:not(.is-top-bar) #nav-totop {
+}
+#page-header:not(.is-top-bar) #nav-totop {
 	width: 0;
 	opacity: 0;
 	transition: width 0.3s, opacity 0.2s;
 	margin-left: 0 !important;
-  }
-  #nav-totop #percent {
+}
+#nav-totop #percent {
 	font-weight: 700;
-  }
-  #nav-totop:hover #percent {
+}
+#nav-totop:hover #percent {
 	opacity: 0;
 	transform: scale(1.5);
 	font-weight: 700;
-  }
-  #page-header #nav #nav-right div {
+}
+#page-header #nav #nav-right div {
 	margin-left: 0.5rem;
 	padding: 0;
-  }
+}
   
-  #nav-totop {
+#nav-totop {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	transition: 0.3s;
-  }
-  .nav-button {
+}
+.nav-button {
 	cursor: pointer;
-  }
-  div#menus {
+}
+div#menus {
 	display: flex;
 	align-items: center;
-  }
-  #page-header #nav .nav-button a {
+}
+#page-header #nav .nav-button a {
 	height: 35px;
 	width: 35px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-  }
+}
   
-  #nav .site-page {
+#nav .site-page {
 	padding-bottom: 0px;
-  }
-  #nav *::after {
+}
+#nav *::after {
 	background-color: transparent !important;
-  }
+}
 
 /* º”‘ÿ∂Øª≠ */
 .loading-img {
