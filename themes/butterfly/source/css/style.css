@@ -182,3 +182,9 @@ i:hover,
   -ms-transition: none!important;
   -o-transition: none!important;
 }
+
+/* º”‘ÿ∂Øª≠ */
+.loading-img {
+	background: url(../img/avatar.png) no-repeat center center;
+	background-size: cover;
+  }
