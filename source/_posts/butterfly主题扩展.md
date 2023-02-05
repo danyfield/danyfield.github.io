@@ -371,3 +371,105 @@ inject:
     - <script src="/js/foot.js"></script>
 ```
 
+##### 加载动画（butterfly4.5以上方案）
+
+修改 `themes/butterfly/layout/includes/loading/fullpage-loading.pug`
+
+```
+#loading-box(onclick='document.getElementById("loading-box").classList.add("loaded")')
+  .loading-bg
+    div.loading-img
+    .loading-image-dot
+
+script.
+  const preloader = {
+    endLoading: () => {
+      document.body.style.overflow = 'auto';
+      document.getElementById('loading-box').classList.add("loaded")
+    },
+    initLoading: () => {
+      document.body.style.overflow = '';
+      document.getElementById('loading-box').classList.remove("loaded")
+
+    }
+  }
+  window.addEventListener('load',()=> { preloader.endLoading() })
+
+  if (!{theme.pjax && theme.pjax.enable}) {
+    document.addEventListener('pjax:send', () => { preloader.initLoading() })
+    document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+  }
+```
+
+修改`themes/butterfly/layout/includes/loading/index.pug`
+
+```
+if theme.preloader.source === 1
+  include ./fullpage-loading.pug
+else if theme.preloader.source === 2
+  include ./pace.pug
+else
+  include ./fullpage-loading.pug
+  include ./pace.pug
+```
+
+修改`themes/butterfly/source/css/_layout/loading.styl`, 注意其中颜色代码`--anzhiyu-card-bg`等需自行替换为自己的色值
+
+```stylus
+if hexo-config('preloader')
+  .loading-bg
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background: var(#fff);
+    z-index: 1001;
+    opacity: 1;
+    transition: .3s;
+
+  #loading-box
+    .loading-img
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      margin: auto;
+      border: 4px solid #f0f0f2;
+      animation-duration: .3s;
+      animation-name: loadingAction;
+      animation-iteration-count: infinite;
+      animation-direction: alternate;
+    .loading-image-dot
+      width: 30px;
+      height: 30px;
+      background: #6bdf8f;
+      position: absolute;
+      border-radius: 50%;
+      border: 6px solid #fff;
+      top: 50%;
+      left: 50%;
+      transform: translate(18px, 24px);
+    &.loaded
+      .loading-bg
+        opacity: 0;
+        z-index: -1000;
+
+  @keyframes loadingAction
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: .4;
+    }
+```
+
+在自定义css文件中加入如下代码，图片最好转换为base64编码：
+
+```css
+.loading-img {
+  background: url(../img/avatar.png) no-repeat center center;
+  background-size: cover;
+}
+```
+
+最后将主题配置文件中的`preloader`修改为`true`
