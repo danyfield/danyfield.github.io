@@ -473,3 +473,109 @@ if hexo-config('preloader')
 ```
 
 最后将主题配置文件中的`preloader`修改为`true`
+
+##### 导航栏修改
+
+在自定义css文件中加入下列代码：
+
+```css
+/* 导航栏修改 */
+/* 圆角隐藏 */
+ul.menus_item_child {
+	border-radius: 5px;
+}
+  
+/* 一级菜单居中 */
+#nav .menus_items {
+	position: absolute;
+	width: fit-content;
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	height: 60px;
+}
+
+#nav a:hover {
+	background: var(--anzhiyu-main);
+	transition: 0.3s;
+}
+  
+#nav-totop:hover .totopbtn i {
+	opacity: 1;
+}
+#nav-totop #percent {
+	font-size: 12px;
+	background: var(--anzhiyu-white);
+	color: var(--anzhiyu-main);
+	width: 25px;
+	height: 25px;
+	border-radius: 35px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	transition: 0.3s;
+}
+.nav-fixed #nav-totop #percent,
+.page #nav-totop #percent {
+	background: var(--font-color);
+	color: var(--card-bg);
+	font-size: 13px;
+}
+  
+#nav-totop {
+	width: 35px;
+}
+#page-header:not(.is-top-bar) #percent {
+	transition: 0.3s;
+}
+#page-header:not(.is-top-bar) #nav-totop {
+	width: 0;
+	opacity: 0;
+	transition: width 0.3s, opacity 0.2s;
+	margin-left: 0 !important;
+}
+#nav-totop #percent {
+	font-weight: 700;
+}
+#nav-totop:hover #percent {
+	opacity: 0;
+	transform: scale(1.5);
+	font-weight: 700;
+}
+#page-header #nav #nav-right div {
+	margin-left: 0.5rem;
+	padding: 0;
+}
+  
+#nav-totop {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: 0.3s;
+}
+.nav-button {
+	cursor: pointer;
+}
+div#menus {
+	display: flex;
+	align-items: center;
+}
+#page-header #nav .nav-button a {
+	height: 35px;
+	width: 35px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+  
+#nav .site-page {
+	padding-bottom: 0px;
+}
+#nav *::after {
+	background-color: transparent !important;
+}
+```
+
