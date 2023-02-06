@@ -1,8 +1,8 @@
 /* 全局默认鼠标指针 */
-body,
+/* body,
 html {
     cursor: url('./mouse/alternate.cur'), auto !important;
-}
+} */
 
 /* 悬停图片时的鼠标指针 */
 /* 选择链接标签时的鼠标指针 */
@@ -12,7 +12,7 @@ html {
 /* 悬停页脚链接标签（例如页脚徽标）时的鼠标指针 */
 /* 悬停页码时的鼠标指针 */
 /* 悬停菜单栏时的鼠标指针 */
-img,
+/* img,
 a:hover,
 input:hover,
 button:hover,
@@ -21,7 +21,7 @@ i:hover,
 #pagination .page-number:hover,
 #nav .site-page:hover {
     cursor: url('./mouse/link.cur'), auto !important;
-}
+} */
 
 /* 标题栏标签图标样式 */
 @font-face {
