@@ -579,3 +579,64 @@ div#menus {
 }
 ```
 
+##### Aplayer音乐插件
+
+运行以下指令安装`hexo-tag-aplayer`插件：
+
+```
+npm install hexo-tag-aplayer --save
+```
+
+在hexo配置文件中新增配置项：
+
+```yaml
+aplayer:
+	meting: true
+	asset_inject: false
+```
+
+修改主题配置文件中关于Aplayer的配置内容：
+
+```yaml
+aplayerInject:
+	enable: true
+  	per_page: true
+  	
+inject:
+  head:
+  bottom:
+    - <div class="aplayer no-destroy" data-id="5183531430" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div>
+```
+
+在`\themes\butterfly\source\css`中新建一个`custom.css`添加css样式使Aplayer自动缩进隐藏，且在主题配置文件`inject`中加入该文件
+
+```css
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+  left: -66px !important;
+  /* 默认情况下缩进左侧66px，只留一点箭头部分 */
+}
+
+.aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+  left: 0 !important;
+  /* 鼠标悬停是左侧缩进归零，完全显示按钮 */
+}
+```
+
+```html
+<link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'">
+```
+
+关于Aplayer的部分参数配置如下：
+
+| option        | description                                             |
+| ------------- | ------------------------------------------------------- |
+| data-id       | 必填，歌单id                                            |
+| data-server   | 必填，服务商：netease, tencent, kugou, xiami, baidu等   |
+| data-type     | 必填，歌单类型：song, playlist, album, search, artist等 |
+| data-fixed    | enable fixed mode                                       |
+| data-mini     | enable mini mode                                        |
+| data-autoplay | audio autoplay                                          |
+| data-theme    | `#2980b9`，main color                                   |
+| data-preload  | values: 'none', 'metadata', 'auto'                      |
+| data-order    | player play order, values: 'list', 'random'             |
+
