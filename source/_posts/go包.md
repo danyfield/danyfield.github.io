@@ -935,6 +935,569 @@ func main() {
 
 ```
 
+### Context
+
+#### Goroutine
+
+轻量级的执行线程，多个goroutine比一个线程轻量，是go的基本执行单元；每个go程序至少有一个主goroutine（程序启动时自动创建）；使用方法类似其它语言的协程（coroutine）
+
+```go
+func Hello() {
+    fmt.Println("hello everybody")
+}
+
+func main() {
+    go Hello()
+    fmt.Println("Golang-Gorontine Example")
+}
+
+// 此时并未执行Hello方法，main执行完后直接退出了，需要使用通道让Hello-Goroutine告诉main执行完成后退出
+```
+
+#### Channel
+
+多个goroutine之间的沟通渠道，用于将结果、错误或任何信息从一个传递到另一个；通道是有类型的
+
+```go
+func Hello(ch chan int)  {
+    fmt.Println("hello everybody")
+    ch <- 1
+}
+
+func main()  {
+    ch := make(chan int)
+    go Hello(ch)
+    <-ch
+    fmt.Println("Golang-Gorontine Example")
+}
+```
+
+当请求进来时，Handler创建一个监控goroutine并打印信息：
+
+```go
+func main()  {
+    http.HandleFunc("/", SayHello) // 设置访问的路由
+    log.Fatalln(http.ListenAndServe(":8080",nil))
+}
+
+func SayHello(writer http.ResponseWriter, request *http.Request)  {
+    fmt.Println(&request)
+
+    go func() {
+        for range time.Tick(time.Second) {
+            fmt.Println("Current request is in progress")
+        }
+    }()
+
+    time.Sleep(2 * time.Second)
+    writer.Write([]byte("Hi, New Request Comes"))
+}
+```
+
+此时假定请求耗时2s，在请求2s后返回，期望打印2次后立即停止，但运行发现，监控goroutine打印2次后仍不会结束且会一直打印；问题在创建监控goroutine后未对生命周期作控制；下面在打印前检测`request.Context()`是否已经结束，若结束则退出循环
+
+```go
+func main()  {
+    http.HandleFunc("/", SayHello) // 设置访问的路由
+
+    log.Fatalln(http.ListenAndServe(":8080",nil))
+}
+
+func SayHello(writer http.ResponseWriter, request *http.Request)  {
+    fmt.Println(&request)
+
+    go func() {
+        for range time.Tick(time.Second) {
+            select {
+            case <- request.Context().Done():
+                fmt.Println("request is outgoing")
+                return
+            default:
+                fmt.Println("Current request is in progress")
+            }
+        }
+    }()
+
+    time.Sleep(2 * time.Second)
+    writer.Write([]byte("Hi, New Request Comes"))
+}
+```
+
+基于如上需求，context包应运而生；**context可以提供一个请求，从API请求边界到各goroutine请求域数据传递、取消信号及截止时间等能力**
+
+#### 设计原理
+
+Go中每一个请求都是通过一个单独的Goroutine进行处理的，HTTP/RPC请求处理器往往会启动新的Goroutine访问数据库和RPC服务，可能会创建多个来处理一次请求；Context的主要作用即在不同Goroutine间同步请求特定的数据、取消信号以及处理请求的截止日期
+
+#### Context接口
+
+```go
+type Context interface {
+    Deadline() (deadline time.Time, ok bool)
+    Done() <- chan struct{}
+    Err() error
+    Value(key interface{}) interface{}
+}
+
+// Deadline方法需要返回当前Context被取消的时间，即完成工作的截止时间
+// Done方法返回一个Channel，该Channel会在当前工作完成或上下文被取消后关闭，多次调用该方法会返回同一个Channel
+// Err方法返回Context结束的原因，只会在Done返回的Channel被关闭时才会返回非空的值
+	// 若当前Context被取消就会返回Canceled错误
+	// 若当前Context超时就会返回DeadlineExceed错误
+// Value方法从Context中返回键对应的值对于同一个上下文来说，多次调用Value 并传入相同的Key会返回相同的结果，该方法仅用于传递跨API和进程间跟请求域数据
+
+// 跨域：若a页面想获取b页面资源，但它们的协议、域名、端口、子域名不同；则所进行的访问行动都是跨域的（跨域限制访问其实是浏览器的限制）
+// 跨域问题解决：用nginx作为代理服务器只在80端口交互
+
+// Go内置两个函数：Background()和TODO()，这两个函数分别返回一个实现了Context接口的background和todo;
+// Background()主要用于main函数、初始化以及测试代码中，作为Context这个树结构的最顶层的Context，也就是根Context
+// TODO()，它目前还不知道具体的使用场景，如果我们不知道该使用什么Context的时候，可以使用这个
+// background和todo本质上都是emptyCtx结构体类型，是一个不可取消，没有设置截止时间，没有携带任何值的Context
+```
+
+##### With系列函数
+
+此外，`context`包中还定义了四个With系列函数；这些函数返回的都是实现了上述接口方法的对应结构体
+
+![](https://s1.ax1x.com/2023/02/15/pS7P1MD.png)
+
+###### WithCancel
+
+接受一个Context并返回其子Context和取消函数cancel
+
+新创建协程中传入子Context做参数且监控其Done通道，若收到消息则退出
+
+需要新协程结束时在外调用cancel函数，即会往子Context的Done通道发送消息
+
+当父Context的Done()关闭时，子ctx的Done()也会被关闭
+
+```go
+// 利用根context创建一个父context，并使用其创建一个协程
+// 再由父创建一个子context，再使用该子context创建一个协程
+// 一段时间后调用父context的cancel函数发现父和子协程都收到信号结束了
+package main
+ 
+import (
+	"context"
+	"fmt"
+	"time"
+)
+ 
+func main() {
+	// 父context(利用根context得到)
+	ctx, cancel := context.WithCancel(context.Background())
+	
+    // 父context的子协程
+	go watch1(ctx)
+ 
+	// 子context，注意：这里虽然也返回了cancel的函数对象，但是未使用
+	valueCtx, _ := context.WithCancel(ctx)
+	// 子context的子协程
+	go watch2(valueCtx)
+ 
+	fmt.Println("现在开始等待3秒,time=", time.Now().Unix())
+	time.Sleep(3 * time.Second)
+ 
+	// 调用cancel()
+	fmt.Println("等待3秒结束,调用cancel()函数")
+	cancel()
+ 
+	// 再等待5秒看输出，可以发现父context的子协程和子context的子协程都会被结束掉
+	time.Sleep(5 * time.Second)
+	fmt.Println("最终结束,time=", time.Now().Unix())
+}
+ 
+// 父context的协程
+func watch1(ctx context.Context) {
+	for {
+		select {
+		case <-ctx.Done(): //取出值即说明是结束信号
+			fmt.Println("收到信号，父context的协程退出,time=", time.Now().Unix())
+			return
+		default:
+			fmt.Println("父context的协程监控中,time=", time.Now().Unix())
+			time.Sleep(1 * time.Second)
+		}
+	}
+}
+ 
+// 子context的协程
+func watch2(ctx context.Context) {
+	for {
+		select {
+		case <-ctx.Done(): //取出值即说明是结束信号
+			fmt.Println("收到信号，子context的协程退出,time=", time.Now().Unix())
+			return
+		default:
+			fmt.Println("子context的协程监控中,time=", time.Now().Unix())
+			time.Sleep(1 * time.Second)
+		}
+	}
+}
+```
+
+```go
+// withCancel的实现
+func WithCancel(parent Context) (ctx Context, cancel CancelFunc) {
+	if parent == nil {
+		panic("cannot create context from nil parent")
+	}
+	c := newCancelCtx(parent)   //返回一个cancelCtx结构体
+	propagateCancel(parent, &c)   //绑定父子context关系
+	return &c, func() { c.cancel(true, Canceled) }
+}
+
+type cancelCtx struct {
+	Context   						// 自己的父context
+
+	mu       sync.Mutex				
+	done     chan struct{}         // 接收取消信号的管道
+	children map[canceler]struct{} // 包含自己路径下所有子context集合
+	err      error
+}
+
+//ctx.Done()其实就是一个管道，即上面cancelCtx结构体中的done
+func (c *cancelCtx) Done() <-chan struct{} {
+	c.mu.Lock()
+	if c.done == nil {
+		c.done = make(chan struct{})
+	}
+	d := c.done
+	c.mu.Unlock()
+	return d
+}
+```
+
+###### WithTimeout、WithDeadline
+
+`WithTimeout`底层实现是调用的`WithDeadline`，并添加对应的过期时间
+
+`WithDeadline`即添加了`timer`计时器，`time.AfterFunc`中计时条件满足时自动触发`cancel`函数
+
+###### WithValue
+
+返回一个带有键值对的`valueCtx`结构体：
+
+```go
+type valueCtx struct {
+	Context
+	key, val interface{}
+}
+```
+
+### Database
+
+```go
+type DB struct{}	//数据库操作句柄，代表一个具有零到多个底层连接的连接池，可以安全的被多个go程同时使用；sql包会自动创建和释放连接，也会维护一个闲置连接的连接池；连接池的大小可用SetMaxldleConns方法控制
+
+func Open(driverName,dataSourceName string) (*DB,error)
+/*
+	driverName表示driver名称，dataSourceName表示连接数据库的信息；
+	Open函数只验证其参数，不创建与数据库的连接，若要检查数据源的名称是否合法，应调用返回值的Ping方法；Open函数只需调用一次，很少需要关闭DB
+*/
+
+func (db *DB) Ping() error		
+// 检查与数据库的连接是否有效
+
+func (db *DB) Close() error		
+// 关闭数据库，释放任何打开的资源，一般不关闭DB，DB句柄通常被多个go程共享，并长期活跃
+
+func (db *DB) Exec(query string, args ...interface{}) (Result,error)
+// Exec执行一次命令（包括查询、删除、更新、插入等），不返回任何执行结果
+
+func (*DB) Query(query string,args ...interface{}) (*Rows,error)
+// Query执行一次查询，返回多行结果，一般用于执行select命令
+    age := 27
+    rows, err := db.Query("SELECT name FROM users WHERE age=?", age)
+    if err != nil {
+        log.Fatal(err)
+    }
+    defer rows.Close()
+    for rows.Next() {
+        var name string
+        if err := rows.Scan(&name); err != nil {
+            log.Fatal(err)
+        }
+        fmt.Printf("%s is %d\n", name, age)
+    }
+    if err := rows.Err(); err != nil {
+        log.Fatal(err)
+    }
+
+func (db *DB) QueryRow(query string,args ...interface{}) *Row
+// QueryRow执行一次查询并期望返回最多一行结果；QueryRow总是返回非nil的值，直到返回值的Scan方法被调用时才会返回被延迟的错误
+    id := 123
+    var username string
+    err := db.QueryRow("SELECT username FROM users WHERE id=?", id).Scan(&username)
+    switch {
+    case err == sql.ErrNoRows:
+        log.Printf("No user with that ID.")
+    case err != nil:
+        log.Fatal(err)
+    default:
+        fmt.Printf("Username is %s\n", username)
+    }
+
+func (*DB) Begin() (*Tx,error)
+// 开始一个事务
+
+func (rs *Rows) Next() bool
+// 用于Scan方法的下一行结果，若成功返回真，若没有下一行或出现错误返回假
+```
+
+### encoding
+
+#### json
+
+`struct tag`可以决定`Marshal`和`Unmarshal`函数如何序列化和反序列化数据
+
+##### Marshal
+
+`func Marshal(v interface{}) ([]byte, error)`
+
+```go
+type ColorGroup struct {
+    ID     int
+    Name   string
+    Colors []string
+}
+group := ColorGroup{
+    ID:     1,
+    Name:   "Reds",
+    Colors: []string{"Crimson", "Red", "Ruby", "Maroon"},
+}
+b, err := json.Marshal(group)
+if err != nil {
+    fmt.Println("error:", err)
+}
+os.Stdout.Write(b)
+
+// Output: {"ID":1,"Name":"Reds","Colors":["Crimson","Red","Ruby","Maroon"]}
+```
+
+##### Unmarshal
+
+`func Unmarshal(data []byte, v interface{}) error`
+
+```go
+var jsonBlob = []byte(`[
+	{"Name": "Platypus", "Order": "Monotremata"},
+	{"Name": "Quoll",    "Order": "Dasyuromorphia"}
+]`)
+type Animal struct {
+    Name  string
+    Order string
+}
+var animals []Animal
+err := json.Unmarshal(jsonBlob, &animals)
+if err != nil {
+    fmt.Println("error:", err)
+}
+fmt.Printf("%+v", animals)
+
+// Output: [{Name:Platypus Order:Monotremata} {Name:Quoll Order:Dasyuromorphia}]
+```
+
+### fmt
+
+实现了类似C语言`printf`和`scanf`的格式化I/O
+
+#### 类型格式
+
+##### 通用
+
+```
+%v		值的默认格式表示
+%+v		类似%v，但输出结构体时会添加字段名
+%#v		值的go语法表示
+%T		值的类型的go语法表示
+%%		百分号
+```
+
+##### 布尔值
+
+```
+%t		单词true或false
+```
+
+##### 整数
+
+```
+%b		表示为二进制
+%c		该值对应的unicode码值
+%d		表示为十进制
+%o		表示为八进制
+%q		该值对应的单引号括起来的go语法字符字面值，必要时采用安全的转义表示
+%x		表示为十六进制，使用a-f
+%X		表示为十六进制，使用A-F
+%U		表示为Unicode格式：U+1234，等价于"U+%04X"
+```
+
+##### 浮点数与复数
+
+```
+%b		无小数部分、二进制指数的科学计数法，如-123456p-78;
+%e		科学计数法，如-1234.456e+78
+%E		科学计数法，如-1234.456E+78
+%f		有小数部分但无指数部分，如123.456（在后面加入小数，个位表示宽度，小数位表示精度）
+%F		等价于%f
+%g		根据实际情况采用%e或%f格式（以获得更简洁、准确的输出）
+%G		根据实际情况采用%E或%F格式（以获得更简洁、准确的输出）
+```
+
+##### 字符串与[]byte
+
+```
+%s		直接输出字符串或者[]byte
+%q		该值对应双引号括起来的go语法字符串字面值，必要时采用安全的转义表示
+%x		每个字节用两字符十六进制数表示（使用a-f）
+%X		每个字节用两字符十六进制数表示（使用A-F）    
+```
+
+##### 指针
+
+```
+%p		表示为十六进制，并加上前导的0x    
+fmt.Sprintf("%[2]d %[1]d\n", 11, 22)	//会生成"22 11"
+```
+
+#### 向外输出
+
+##### Print
+
+```go
+//直接输出内容
+func Print(a ...interface{}) (n int,err error)
+//支持格式化输出字符串
+func Printf(format string,a ...interface{}) (n int,err error)
+//在输出内容结尾添加一个换行符
+func Println(a ...interface{}) (n int,err error)
+
+fmt.Printf("名字是：%v\n","lxx")
+fmt.Printf("年龄是：%v\n",19)
+p:= struct {
+	name string
+	age int
+}{"lxx",19}
+fmt.Printf("结构体内容为：%v\n",p)
+fmt.Printf("结构体内容为(带字段名)：%+v\n",p) // 输出结构体是会带name
+fmt.Printf("结构体内容为(值的Go语法表示)：%#v\n",p) // 输出结构体是会带name
+
+fmt.Printf("切片内容为：%v\n",[]int{4,5,6})
+fmt.Printf("切片内容为(值的Go语法表示)：%#v\n",[]int{4,5,6})
+
+fmt.Printf("切片值的类型为：%T\n",[]int{4,5,6})
+fmt.Printf("字符串值的类型为：%T\n","lxx")
+
+fmt.Printf("打印百分百：100%%\n")
+
+//名字是：lxx
+//年龄是：19
+//结构体内容为：{lxx 19}
+//结构体内容为(带字段名)：{name:lxx age:19}
+//结构体内容为(值的Go语法表示)：struct { name string; age int }{name:"lxx", age:19}
+//切片内容为：[4 5 6]
+//切片内容为(值的Go语法表示)：[]int{4, 5, 6}
+//切片值的类型为：[]int
+//字符串值的类型为：string
+//打印百分百：100%
+```
+
+##### Fprint
+
+将内容输出到一个`io.Writer`接口类型的变量`w`中，通常用该函数往文件中写入内容
+
+```go
+func Fprint(w io.Writer, a ...interface{}) (n int, err error)
+func Fprintf(w io.Writer, format string, a ...interface{}) (n int, err error)
+func Fprintln(w io.Writer, a ...interface{}) (n int, err error)
+
+func main() {
+    //向标准输出写入内容
+    fmt.Fprint(os.Stdout,"向标准输出（控制台）写入内容")
+    fileObj,err := os.OpenFile("./xx.txt",os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+    if err != nil {
+		fmt.Println("打开文件出错，err:", err)
+		return
+	}
+    name := "lxx is nb"
+    // 向打开的文件句柄中写入内容
+	fmt.Fprintf(fileObj, "往文件中(标准输出)写如信息：%s", name)
+}
+```
+
+##### Sprint
+
+将传入的数据生成并返回一个字符串
+
+```go
+func Sprint(a ...interface{}) string
+func Sprintf(format string, a ...interface{}) string
+func Sprintln(a ...interface{}) string
+
+s1 := fmt.Sprint("lxx")
+name := "lxx"
+age := 18
+s2 := fmt.Sprintf("姓名:%s,年龄:%d", name, age)
+s3 := fmt.Sprintln("lxx is nb")
+fmt.Println(s1, s2, s3)
+
+//Output: lxx 姓名:lxx,年龄:18 lxx is nb
+```
+
+#### 获取输入
+
+##### Scan
+
+- 从标准输入扫描文本，读取由空白字符分隔的值保存到传递给本函数的参数中，换行符视为空白符
+- 返回成功扫描的数据个数和遇到的任何错误，若读取数据个数比提供的参数少，会返回一个错误报告原因
+- **若想完整获取输入的内容，而输入的内容可能包含空格，可以使用`bufio`中的方法**
+
+`func Scan(a ...interface{}) (n int,err error)`
+
+##### Scanf
+
+`func Scanf(format string, a ...interface{}) (n int, err error)`
+
+```go
+var (
+	name string
+    age int
+)
+fmt.Scanf("name:%s age:%d", &name, &age) // 在控制台按照该格式输入
+fmt.Printf("扫描结果： 姓名:%s 年龄:%d \n", name, age)
+
+// 控制台按如下格式输入
+//name:lxx age:19
+//扫描结果： 姓名:lxx 年龄:19 
+```
+
+##### Scanln
+
+类似Scan，遇到换行时才停止扫描
+
+`func Scanln(a ...interface{}) (n int, err error)`
+
+##### Fscan和Sscan
+
+Fscan从`io.Reader`中读取数据，Sscan从指定字符串中读取数据
+
+```go
+func Fscan(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanln(r io.Reader, a ...interface{}) (n int, err error)
+func Fscanf(r io.Reader, format string, a ...interface{}) (n int, err error)
+
+func Sscan(str string, a ...interface{}) (n int, err error)
+func Sscanln(str string, a ...interface{}) (n int, err error)
+func Sscanf(str string, format string, a ...interface{}) (n int, err error)
+
+var name string="lxx"
+var newName string=""
+fmt.Sscan(name,&newName) // 相当于把name的值赋值给newName
+fmt.Println(name)
+fmt.Println(newName)
+```
+
 ### Strings
 
 ```go
