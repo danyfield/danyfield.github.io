@@ -2,14 +2,16 @@
 title: docker笔记
 date: 2023-02-03 14:53:37
 tags: "docker"
-categories: "linux"
+categories: "docker"
 ---
 
-#### Docker存在意义
+## 知识点
 
-##### docker作用
+### Docker存在意义
 
-###### 虚拟机技术与容器化技术
+#### docker作用
+
+##### 虚拟机技术与容器化技术
 
 - 虚拟机技术
   1. 资源占用十分多
@@ -19,7 +21,7 @@ categories: "linux"
   1. 直接运行在宿主机中，容器自身无内核，也没有虚拟出硬件，所以轻便
   2. 每个容器内有自己的文件系统，互不影响
 
-###### DevOps（开发、运维）
+##### DevOps（开发、运维）
 
 - 应用更快速的交付和部署
 
@@ -34,24 +36,24 @@ categories: "linux"
 
 - 更有效的计算资源利用
 
-##### 为什么docker比vm快
+#### 为什么docker比vm快
 
 1. docker抽象层比虚拟机少，无需Hypervisor实现硬件资源虚拟化，运行在docker上的程序使用实际物理机的硬件资源，故docker在效率上更有优势
 2. docker利用的是宿主机的内核，而不需要Guest OS
 
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTEwNDExNzMyOS5wbmc?x-oss-process=image/format,png)
 
-##### docker安装
+#### docker安装
 
-###### 镜像（image）
+##### 镜像（image）
 
 镜像相当于一个目标，通过其创建容器服务
 
-###### 容器（container）
+##### 容器（container）
 
 镜像创建的单个应用
 
-###### 仓库（repository）
+##### 仓库（repository）
 
 仓库是存放镜像的地方，仓库分为公有仓库和私有仓库
 
@@ -93,7 +95,7 @@ docker run hello-world
 docker images
 ```
 
-##### docker卸载
+#### docker卸载
 
 ```
 #1.卸载依赖
@@ -102,17 +104,17 @@ yum remove docker-ce docker-ce-cli containerd.io
 yum -rf /var/lib/docker		//docker默认工作路径
 ```
 
-#### 阿里镜像加速
+### 阿里镜像加速
 
-##### 登录阿里云找到容器镜像服务
+#### 登录阿里云找到容器镜像服务
 
 ![](https://s1.ax1x.com/2023/02/03/pSsYlp8.png)
 
-##### 找到镜像加速器
+#### 找到镜像加速器
 
 ![](https://s1.ax1x.com/2023/02/03/pSsYMff.png)
 
-##### 配置使用
+#### 配置使用
 
 ```
 #1.创建一个目录
@@ -130,7 +132,7 @@ sudo systemctl daemon-reload
 sudo systemctl restart docker
 ```
 
-#### Docker常用命令
+### Docker常用命令
 
 1. 帮助命令
 
@@ -282,13 +284,13 @@ sudo systemctl restart docker
 
    ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNDIxNDMxMzk2Mi5wbmc?x-oss-process=image/format,png)
 
-#### 容器数据卷
+### 容器数据卷
 
 如果数据都在容器中，那么容器删除数据就会丢失；此时容器之间需要有一个数据共享的技术，Docker中产生的数据同步到本地；**容器的持久化和同步操作，容器间实现数据共享**
 
 卷技术：目录的挂载，将容器内的目录挂载到Linux上面
 
-##### 方式一：直接使用命令挂载-v
+#### 方式一：直接使用命令挂载-v
 
 ```
 docker run -it -v 主机目录:容器内目录  -p 主机端口:容器内端口
@@ -301,7 +303,7 @@ docker inspect 容器id
 
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTE5MTcxODQ3MC5wbmc?x-oss-process=image/format,png)
 
-###### 安装MySQL挂载连接测试
+##### 安装MySQL挂载连接测试
 
 **思考：MySQL的数据持久化的问题**
 
@@ -321,7 +323,7 @@ docker run -d -p 主机端口:容器内端口 -v 主机配置文件路径:/etc/m
 #此时在本地新建数据库时，容器也会创建对应的数据库；若将容器内mysql删除，挂载到本地的数据卷依旧没有丢失，实现了容器数据持久化功能
 ```
 
-#### 具名和匿名挂载
+### 具名和匿名挂载
 
 ```
 # 匿名挂载（在-v中只写了容器内的路径，没有写容器外的路径）
@@ -348,7 +350,7 @@ local               juming-nginx #多了一个名字
 
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNjExNDIzMTQzNS5wbmc?x-oss-process=image/format,png)
 
-##### 区分三种挂载方式
+#### 区分三种挂载方式
 
 ```
 # 三种挂载： 匿名挂载、具名挂载、指定路径挂载
@@ -357,7 +359,7 @@ local               juming-nginx #多了一个名字
 -v /宿主机路径：容器内路径 #指定路径挂载 docker volume ls 是查看不到的
 ```
 
-##### 拓展
+#### 拓展
 
 ```
 # 通过 -v 容器内路径： ro rw 改变读写权限
@@ -368,7 +370,7 @@ docker run -d -P --name nginx05 -v juming:/etc/nginx:rw nginx
 # ro 只要看到ro就说明这个路径只能通过宿主机来操作，容器内部是无法操作！
 ```
 
-#### Dockerfile
+### Dockerfile
 
 **Dockerfile 就是用来构建docker镜像的构建文件**
 
@@ -390,7 +392,7 @@ $ docker build -f dockerfile1 -t dockerfiletest/centos .
 # .	表示生成在当前目录下
 ```
 
-##### 容器间的数据同步
+#### 容器间的数据同步
 
 ```
 # 创建docker01
@@ -419,7 +421,7 @@ docker run -it --name docker03 --volumes-from docker01 dockerfiletest/centos
 # 删除docker01，发现docker02和docker03中没有删除
 ```
 
-###### 实现多个mysql的数据共享
+##### 实现多个mysql的数据共享
 
 ```
 docker run -d -p 3306:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root --name mysql01 mysql:5.7
@@ -431,16 +433,16 @@ docker run -d -p 3310:3306 -e MYSQL_ROOT_PASSWORD=root --name mysql02 --volumes-
 
 **容器之间的配置信息的传递，数据卷容器的生命周期一直持续到没有容器使用为止；一旦持久化到了本地，此时本地的数据是不会删除的**
 
-##### DockerFile构建过程
+#### DockerFile构建过程
 
-###### 基础知识
+##### 基础知识
 
 1. 每个保留关键字（指令）都必须是大写字母
 2. 执行顺序从上到下
 3. #表示注释
 4. 每个指令都会创建提交一个新的镜像层，并提交
 
-###### DockerFile指令
+##### DockerFile指令
 
 ```
 FROM				#from：基础镜像，一切从这里开始构建
@@ -459,29 +461,31 @@ ENV					#env：构建时设置环境变量
 
 ![](https://s1.ax1x.com/2023/02/03/pSsY11S.png)
 
-###### 镜像发布
+##### 镜像发布
 
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNjE3MTE1NTY2Ny5wbmc?x-oss-process=image/format,png)
 
-#### Docker网络
+### Docker网络
 
-##### 理解Docker 0
+#### 理解Docker 0
 
 ![](https://imgconvert.csdnimg.cn/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NoZW5nY29kZXgvY2xvdWRpbWcvbWFzdGVyL2ltZy9pbWFnZS0yMDIwMDUxNTIyMzIzNjc3Mi5wbmc?x-oss-process=image/format,png)
 
-###### docker如何处理容器网络访问
+##### docker如何处理容器网络访问
 
-#### 连接docker中的mysql
+## 实例
 
-##### 主要步骤
+### 连接docker中的mysql
 
-###### Docker下载mysql
+#### 主要步骤
+
+##### Docker下载mysql
 
 ```
 docker pull mysql
 ```
 
-###### 启动mysql实例
+##### 启动mysql实例
 
 ```
 docker run --name mysql_Docker -p 13306:3306 -v /mydata/mysql/log:/var/log/mysql -v /mydata/mysql/data:/var/lib/mysql -v /mydata/mysql/conf:/etc/mysql -e MYSQL_ROOT_PASSWARD=root -d mysql
@@ -491,19 +495,19 @@ docker run --name mysql_Docker -p 13306:3306 -v /mydata/mysql/log:/var/log/mysql
 # 最后的mysql是镜像名称		-v为挂载（etc为配置文件，log为日志文件，lib为配置文件，将mysql容器内部文件挂载到linux中，每次变动都会在linux显示，而不用进入到容器内部查看）
 ```
 
-###### 进入容器内部(mysql_Docker为容器名字)
+##### 进入容器内部(mysql_Docker为容器名字)
 
 ```
 docker exec -it mysql_Docker bash
 ```
 
-###### 登录mysql
+##### 登录mysql
 
 ```
 mysql -u root -p root
 ```
 
-###### 创建用户授予权限
+##### 创建用户授予权限
 
 ```
 create user test@'%' identified by '123456';
@@ -511,7 +515,7 @@ grant all on *.* to test@'%';
 flush privileges;	#刷新权限
 ```
 
-###### 防火墙
+##### 防火墙
 
 ```
 systemctl start firewalld.service	#开启防火墙
@@ -522,15 +526,15 @@ firewall-cmd --reload				#重启防火墙
 firewall-cmd --list-ports			#再次查看端口号是否开启
 ```
 
-###### 本地可以使用docker地址加暴露ip连接mysql
+##### 本地可以使用docker地址加暴露ip连接mysql
 
 ```
 ip addr		#查看虚拟机ip地址，使用工具连接ip加端口
 ```
 
-##### 常见问题
+#### 常见问题
 
-###### docker启动mysql失败
+##### docker启动mysql失败
 
 ```
 root@ecs-kc1-small-1-linux:~# docker run -p 3306:3306 mysql:8-oracle
@@ -549,3 +553,119 @@ root@ecs-kc1-small-1-linux:~# docker run -p 3306:3306 mysql:8-oracle
 ```
 docker run --name mysql -d -it -p 3306:3306 -e MYSQL_ROOT_PASSWORD=root -d mysql
 ```
+
+### 连接docker中的elasticsearch7.6.2
+
+#### 主要步骤
+
+##### docker下载相关镜像
+
+`docker pull elasticsearch:7.6.2`
+
+##### 创建持久化文件
+
+```
+mkdir -p /mydata/elasticsearch/config
+mkdir -p /mydata/elasticsearch/data
+```
+
+##### 初始化配置
+
+`echo "http.host: 0.0.0.0" >> /mydata/elasticsearch/config/elasticsearch.yml`
+
+##### 启动镜像
+
+```
+docker run --name elasticsearch -p 9200:9200 -p 9300:9300 \
+-e "discovery.type=single-node" \
+-e ES_JAVA_OPTS="-Xms84m -Xmx512m" \
+-v /mydata/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \
+-v /mydata/elasticsearch/data:/usr/share/elasticsearch/data \
+-v /mydata/elasticsearch/plugins:/usr/share/elasticsearch/plugins \
+-d elasticsearch:7.6.2
+
+# -p:端口映射
+# -e discovery.type=single-node 单点模式启动
+# -e ES_JAVA_OPTS="-Xms84m -Xmx512m"：设置启动占用的内存范围（实验环境启动后可能因为云服务器内存过小而占满）
+# -v 目录挂载
+# -d 后台运行
+```
+
+##### 安装kibana
+
+###### 下载同版本镜像
+
+`docker pull kibana:7.6.2`
+
+###### 初始化配置
+
+```
+mkdir -p /mydata/kibana
+touch /mydata/kibana/kibana.yml
+vim /mydata/kibana/kibana.yml
+```
+
+```yaml
+server.host: 0.0.0.0
+elasticsearch.hosts: http://你的ip:9200
+```
+
+###### 启动kibana
+
+```
+docker run --name kibana -v /mydata/kibana/kibana.yml:/usr/share/kibana/config/kibana.yml -p 5601:5601 -d kibana:7.6.2 
+```
+
+#### 常见问题
+
+##### 文件权限问题
+
+elasticsearch启动后使用docker ps查看发现未正常启动，查看启动日志
+
+`docker logs elasticsearch`
+
+![img](https://upload-images.jianshu.io/upload_images/23507229-dbe6ad70a59f98cd.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+
+发现是文件拒绝访问异常,为该文件夹设置所有用户都有读写执行权限
+
+`chmod -R 777 /mydata/elasticsearch/`
+
+重新启动elasticsearch
+
+`docker restart elasticsearch`
+
+##### jdk版本过低
+
+启动日志中也有可能报以下错误：
+
+```
+OpenJDK 64-Bit Server VM warning: Option UseConcMarkSweepGC was deprecated in version 9.0 and will likely be removed in a future release.
+```
+
+原因是jdk版本过低，需要将jdk升级到9.0以上；去镜像网站下载jdk(这里是去华为云下载的)
+
+```
+cd /usr/local
+
+wget https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_linux-x64_bin.tar.gz
+
+# 解压
+tar -zxvf tar -zxvf jdk-9.0.1_linux-x64_bin.tar.gz 
+
+# 配置JAVA_HOME
+vim /etc/profile
+# 内容如下
+export JAVA_HOME=/usr/local/jdk-9.0.1
+export JRE_HOME=/usr/local/jdk-9.0.1/jre
+export CLASSPATH=.:$CLASSPATH:$JAVA_HOME/lib:$JRE_HOME/lib
+export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
+
+# 删除原jdk环境
+# 此时执行java-version可能显示的还是jdk1.8
+# 执行which java，会输出一个目录，删除之
+# 执行which javac，也会输出一个目录，删除之
+# 执行 ln -s $JAVA_HOME/bin/java /usr/bin/java
+# 执行 ln -s $JAVA_HOME/bin/javac /usr/bin/javac
+# 执行 source /etc/profile再次查看java版本即可
+```
+
