@@ -1,0 +1,439 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0"><title>Java笔记 | dany's blog</title><meta name="author" content="dany"><meta name="copyright" content="dany"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Java基础JDK JRE JVM JDK：Java Development Kit (Java开发者工具，包括 JRE，JVM) JRE：Java Runtime Environment (Java运行时环境) JVM：Java Virtual Machine (Java虚拟机，跨平台核心)   数据类型 权限修饰符   修饰符 类内部 同一个包 不同包的子类 同一个工程    private">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java笔记">
+<meta property="og:url" content="https://danyfield.github.io/2023/02/03/Java%E7%AC%94%E8%AE%B0/index.html">
+<meta property="og:site_name" content="dany&#39;s blog">
+<meta property="og:description" content="Java基础JDK JRE JVM JDK：Java Development Kit (Java开发者工具，包括 JRE，JVM) JRE：Java Runtime Environment (Java运行时环境) JVM：Java Virtual Machine (Java虚拟机，跨平台核心)   数据类型 权限修饰符   修饰符 类内部 同一个包 不同包的子类 同一个工程    private">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://danyfield.github.io/img/avatar.png">
+<meta property="article:published_time" content="2023-02-03T04:56:34.000Z">
+<meta property="article:modified_time" content="2023-02-07T10:41:01.268Z">
+<meta property="article:author" content="dany">
+<meta property="article:tag" content="Java">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://danyfield.github.io/img/avatar.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="https://danyfield.github.io/2023/02/03/Java%E7%AC%94%E8%AE%B0/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"languages":{"hits_empty":"找不到您查询的内容：${query}"}},
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '天',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/flickr-justified-gallery/dist/fjGallery.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: true,
+  }
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: 'Java笔记',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2023-02-07 18:41:01'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+    win.getCSS = url => new Promise((resolve, reject) => {
+      const link = document.createElement('link')
+      link.rel = 'stylesheet'
+      link.href = url
+      link.onload = () => resolve()
+      link.onerror = () => reject()
+      document.head.appendChild(link)
+    })
+  
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/mouse.css"><link rel="stylesheet" href="/css/style.css"><link rel="stylesheet" href="/css/custom.css"  media="defer" onload="this.media='all'"><meta name="generator" content="Hexo 5.4.2"></head><body><div id="loading-box" onclick="document.getElementById(&quot;loading-box&quot;).classList.add(&quot;loaded&quot;)"><div class="loading-bg"><div class="loading-img"></div><div class="loading-image-dot"></div></div></div><script>const preloader = {
+  endLoading: () => {
+    document.body.style.overflow = 'auto';
+    document.getElementById('loading-box').classList.add("loaded")
+  },
+  initLoading: () => {
+    document.body.style.overflow = '';
+    document.getElementById('loading-box').classList.remove("loaded")
+
+  }
+}
+window.addEventListener('load',()=> { preloader.endLoading() })
+
+if (true) {
+  document.addEventListener('pjax:send', () => { preloader.initLoading() })
+  document.addEventListener('pjax:complete', () => { preloader.endLoading() })
+}</script><div id="web_bg"></div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/avatar.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-mulu"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-shijianxian"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxiankafeiyule"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-yinle"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/documents/"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-shipin"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/img/index.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="dany's blog"><span class="site-name">dany's blog</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><span> 搜索</span></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw iconfont icon-shouye"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-mulu"></i><span> 目录</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw iconfont icon-shijianxian"></i><span> 归档</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw iconfont icon-biaoqian"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw iconfont icon-fenlei"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw iconfont icon-xiuxiankafeiyule"></i><span> 休闲</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw iconfont icon-yinle"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/documents/"><i class="fa-fw iconfont icon-wendang"></i><span> 文档</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw iconfont icon-shipin"></i><span> 视频</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw iconfont icon-lianjie"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw iconfont icon-guanyu"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">Java笔记</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2023-02-03T04:56:34.000Z" title="发表于 2023-02-03 12:56:34">2023-02-03</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2023-02-07T10:41:01.268Z" title="更新于 2023-02-07 18:41:01">2023-02-07</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/Java/">Java</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">5.2k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>18分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="Java笔记"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h3 id="Java基础"><a href="#Java基础" class="headerlink" title="Java基础"></a>Java基础</h3><h4 id="JDK-JRE-JVM"><a href="#JDK-JRE-JVM" class="headerlink" title="JDK JRE JVM"></a>JDK JRE JVM</h4><ul>
+<li>JDK：Java Development Kit (Java开发者工具，包括 JRE，JVM)</li>
+<li>JRE：Java Runtime Environment (Java运行时环境)</li>
+<li>JVM：Java Virtual Machine (Java虚拟机，跨平台核心)</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/20210427081317290.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZsbG93X3dpbmQ=,size_16,color_FFFFFF,t_70"></p>
+<h4 id="数据类型"><a href="#数据类型" class="headerlink" title="数据类型"></a>数据类型</h4><p><img src="https://img-blog.csdnimg.cn/20210427081748164.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2ZsbG93X3dpbmQ=,size_16,color_FFFFFF,t_70"></p>
+<h4 id="权限修饰符"><a href="#权限修饰符" class="headerlink" title="权限修饰符"></a>权限修饰符</h4><table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>类内部</th>
+<th>同一个包</th>
+<th>不同包的子类</th>
+<th>同一个工程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>private</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>缺省</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>protected</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td></td>
+</tr>
+<tr>
+<td>public</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+</tbody></table>
+<h4 id="构造器"><a href="#构造器" class="headerlink" title="构造器"></a>构造器</h4><h5 id="什么是构造器"><a href="#什么是构造器" class="headerlink" title="什么是构造器"></a>什么是构造器</h5><p>构造器通常也叫构造方法、构造函数，构造器在每个项目中几乎无处不在。当你new一个对象时，就会调用构造器。构造器格式如下：[修饰符，比如public] 类名 (参数列表，可以没有参数){ //这里不能有return}</p>
+<h5 id="构造器的注意事项"><a href="#构造器的注意事项" class="headerlink" title="构造器的注意事项"></a>构造器的注意事项</h5><ol>
+<li>构造器的名称必须和类名一致</li>
+<li>一个类中可以定义多个构造器，但是构造器的参数列表必须不同（重载）</li>
+<li>若没有定义构造器，则Java系统会提供一个默认的构造器；定义后系统会将默认的构造器收回</li>
+<li>构造器的作用：实例化对象，给对象赋初始值</li>
+<li>代码游离块优先执行</li>
+<li>构造方法中的参数可以根据需要自行定义，参数的不同构造方法构成重载</li>
+<li>子类构造器默认调用父类无参构造器，若父类没有，则必须在子类构造器的第一行通过super关键字指定调用父类哪个构造器</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> 构造方法名(参数)&#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">/*注意：</span></span><br><span class="line"><span class="comment">  1.构造方法没有返回值类型</span></span><br><span class="line"><span class="comment">  2.构造方法名必须和该类的类名保持一致，大小写都一样</span></span><br><span class="line"><span class="comment">*/</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">Fu</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Fu</span><span class="params">()</span>&#123;&#125; <span class="comment">//无参的公有构造方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Fu</span><span class="params">(<span class="type">int</span> i)</span>&#123;&#125; <span class="comment">//参数类型为int的公有构造方法</span></span><br><span class="line">  ......</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">  <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Demo</span> <span class="keyword">extends</span> <span class="title class_">Fu</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Demo</span><span class="params">()</span>&#123;&#125; <span class="comment">//无参的公有构造方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Demo</span><span class="params">(<span class="type">int</span> i)</span>&#123;&#125; <span class="comment">//参数类型为int的公有构造方法</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Demo</span><span class="params">(<span class="type">int</span> i,<span class="type">double</span> d)</span>&#123;&#125; <span class="comment">//参数类型为int和double的公有构造方法</span></span><br><span class="line">    ...</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="构造器的使用"><a href="#构造器的使用" class="headerlink" title="构造器的使用"></a>构造器的使用</h5><ol>
+<li>Demo demo = new Demo(); //这里是调用的是一个无参的构造方法，必须声明在方法中，最好声明在主方法</li>
+<li>super、this关键字后的括号内填写参数</li>
+</ol>
+<h4 id="泛型"><a href="#泛型" class="headerlink" title="泛型"></a>泛型</h4><h5 id="泛型的本质"><a href="#泛型的本质" class="headerlink" title="泛型的本质"></a>泛型的本质</h5><p>参数化类型，即给类型指定一个参数，然后在使用时再指定此参数具体的值，因此这个类型可以在使用时决定了。这种参数类型可以用在类、接口和方法中，分别被称为泛型类、泛型接口、泛型方法。</p>
+<h5 id="为什么使用泛型"><a href="#为什么使用泛型" class="headerlink" title="为什么使用泛型"></a>为什么使用泛型</h5><p>泛型在编译的时候检查类型安全，且所有的强制转换都是自动和隐式的，提高代码的重用率</p>
+<ol>
+<li><p>保证了类型的安全性</p>
+<p>在没有泛型之前，从集合中读取到的每一个对象都必须进行类型转换，如果不小心插入了错误的类型对象，在运行时的转换处理就会出错。</p>
+<p><code>没有泛型的情况下使用集合：</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">noGeneric</span><span class="params">()</span> &#123;</span><br><span class="line"><span class="type">ArrayList</span> <span class="variable">names</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">names.add(<span class="string">&quot;mikechen的互联网架构&quot;</span>);</span><br><span class="line">names.add(<span class="number">123</span>); <span class="comment">//编译正常</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>有泛型的情况下使用集合：</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">useGeneric</span><span class="params">()</span> &#123;</span><br><span class="line">ArrayList&lt;String&gt; names = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line">names.add(<span class="string">&quot;mikechen的互联网架构&quot;</span>);</span><br><span class="line">names.add(<span class="number">123</span>); <span class="comment">//编译不通过</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>消除强制转换</p>
+<p>以下没有泛型的代码段需要强制转换：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">List</span> <span class="variable">list</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ArrayList</span>();</span><br><span class="line">list.add(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> (String) list.get(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
+
+<p>当重写为使用泛型时，代码不需要强制转换：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">List&lt;String&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;String&gt;();</span><br><span class="line">list.add(<span class="string">&quot;hello&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">s</span> <span class="operator">=</span> list.get(<span class="number">0</span>); <span class="comment">// no cast</span></span><br></pre></td></tr></table></figure></li>
+<li><p>避免了不必要的装箱、拆箱操作，提高程序的性能</p>
+<p>在非泛型编程中，将简单类型作为Object传递时会引起Boxing（装箱）和Unboxing（拆箱）操作，这两个过程都是具有很大开销的；引入泛型后不必进行了，因此效率相对较高。泛型变量固定了类型，使用的时候就已经知道是值类型还是引用类型，避免了不必要的装箱、拆箱操作。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line">object a=<span class="number">1</span>;<span class="comment">//由于是object类型，会自动进行装箱操作。</span></span><br><span class="line"> </span><br><span class="line"><span class="type">int</span> b=(<span class="type">int</span>)a;<span class="comment">//强制转换，拆箱操作。这样一去一来，当次数多了以后会影响程序的运行效率。</span></span><br></pre></td></tr></table></figure>
+
+<p>使用泛型后：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> T GetValue&lt;T&gt;(T a)</span><br><span class="line"> </span><br><span class="line">&#123;</span><br><span class="line">　　<span class="keyword">return</span> a;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">Main</span><span class="params">()</span></span><br><span class="line"> </span><br><span class="line">&#123;</span><br><span class="line">　　<span class="type">int</span> b=GetValue&lt;<span class="type">int</span>&gt;(<span class="number">1</span>);<span class="comment">//使用这个方法的时候已经指定了类型是int，所以不会有装箱和拆箱的操作。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>提高了代码的重用性</p>
+</li>
+</ol>
+<h5 id="泛型类"><a href="#泛型类" class="headerlink" title="泛型类"></a>泛型类</h5><p><code>定义格式</code></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/1db3182a6d057494269abdce8295bc36.png"></p>
+<p><strong>注意事项：泛型类型必须是引用类型（非基本数据类型）</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">T：任意类型 type</span><br><span class="line">E：集合中元素的类型 element</span><br><span class="line">K：key-value形式 key</span><br><span class="line">V： key-value形式 value</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h5 id="泛型接口"><a href="#泛型接口" class="headerlink" title="泛型接口"></a>泛型接口</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/ed46d1a9cd3bd4a129b4cefffb49a7ef.png"></p>
+<ul>
+<li>方法声明中定义的形参只能在该方法里使用，而接口、类声明中定义的类型形参则可以在整个接口、类中使用。当调用fun()方法时，根据传入的实际对象，编译器就会判断出类型形参T所代表的实际类型。</li>
+</ul>
+<p>使用泛型时，前后定义的泛型类型必须保持一致，否则会编译异常；或者不指定类型，则new什么类型都可以。</p>
+<h5 id="泛型方法"><a href="#泛型方法" class="headerlink" title="泛型方法"></a>泛型方法</h5><p><img src="https://img-blog.csdnimg.cn/img_convert/cbd36e763feb3d7b14c3820a3457d8bc.png"></p>
+<h5 id="泛型通配符"><a href="#泛型通配符" class="headerlink" title="泛型通配符"></a>泛型通配符</h5><p><strong>Java泛型通配符是用于解决泛型之间引用传递问题的特殊语法</strong></p>
+<p><img src="https://img-blog.csdnimg.cn/img_convert/dd75905a8af533dd3f90a52877e8c84b.png"></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//表示类型参数可以是任何类型</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Apple</span>&lt;?&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示类型参数必须是A或A的子类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Apple</span>&lt;T <span class="keyword">extends</span> <span class="title class_">A</span>&gt;&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//表示类型参数必须是A或者是A的超类型</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Apple</span>&lt;T supers A&gt;&#123;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h4><p>**Java反射机制（<code>Java Reflection</code>）是Java语言中一种<code>动态（运行时）访问、检测 &amp; 修改它本身</code>的能力，主要作用是<code>动态（运行时）获取类的完整结构信息 &amp; 调用对象的方法</code>**，即Java运行时通过创建一个类的反射对象，再对类进行相关操作：</p>
+<ul>
+<li>获取对象的成员变量&amp;赋值</li>
+<li>调用对象的方法（含构造方法，有参/无参）</li>
+<li>判断对象所属的类</li>
+</ul>
+<p><strong>一般情况下，我们使用某个类，都会知道这个类，以及要用它来做什么，可以直接通过<code>new</code>实例化创建对象，然后使用这个对象对类进行操作，这个就属于<code>正射</code></strong></p>
+<p><strong>而<code>反射</code>则是一开始并不知道要初始化的是什么类，无法使用<code>new</code>来实例化创建对象，主要是通过JDK提供的反射API来实现，在运行时才知道要操作的是什么类，并且可以获取到类的完整构造以及调用对应的方法</strong></p>
+<p><code>示例</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.justin.java.lang;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Constructor;</span><br><span class="line"><span class="keyword">import</span> java.lang.reflect.Method;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Student</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">int</span> id;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setId</span><span class="params">(<span class="type">int</span> id)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.id = id;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getId</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> id;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">//一、正射调用过程</span></span><br><span class="line">        <span class="type">Student</span> <span class="variable">student</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Student</span>();</span><br><span class="line">        student.setId(<span class="number">1</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;正射调用过程Student id:&quot;</span> + student.getId());</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//二、反射调用过程</span></span><br><span class="line">        <span class="type">Class</span> <span class="variable">clz</span> <span class="operator">=</span> Class.forName(<span class="string">&quot;com.justin.java.lang.Student&quot;</span>);</span><br><span class="line">        <span class="type">Constructor</span> <span class="variable">studentConstructor</span> <span class="operator">=</span> clz.getConstructor();</span><br><span class="line">        <span class="type">Object</span> <span class="variable">studentObj</span> <span class="operator">=</span> studentConstructor.newInstance();</span><br><span class="line">        </span><br><span class="line">        <span class="type">Method</span> <span class="variable">setIdMethod</span> <span class="operator">=</span> clz.getMethod(<span class="string">&quot;setId&quot;</span>,<span class="type">int</span>.class);</span><br><span class="line">        setIdMethod.invoke(studentObj,<span class="number">2</span>);</span><br><span class="line">        <span class="type">Method</span> <span class="variable">getIdMethod</span> <span class="operator">=</span> clz.getMethod(<span class="string">&quot;getId&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;正射调用过程Student id:&quot;</span> + getIdMethod.invoke(studentObj));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">正射调用过程Student id:1</span><br><span class="line">反射调用过程Student id:2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>获取一个类反射对象的主要过程</code></p>
+<ul>
+<li>获取类的<code>Class</code>实例对象</li>
+<li>根据<code>Class</code>实例对象获取<code>Constructor</code>对象</li>
+<li>根据<code>Constructor</code>对象的<code>newInstance</code>方法获取类的反射对象</li>
+</ul>
+<p><strong>获取到类的反射对象后就可以对类进行操作了</strong></p>
+<ul>
+<li>根据<code>Class</code>实例对象获取类的<code>Method</code>对象</li>
+<li>根据<code>Method</code>对象的<code>invoke</code>方法调用到具体类的方法</li>
+</ul>
+<p><img src="https://img-blog.csdnimg.cn/54f7a810b4514da790958ce554d9c826.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0p1c3RpblFpbg==,size_16,color_FFFFFF,t_70"></p>
+<h5 id="反射机制使用场景"><a href="#反射机制使用场景" class="headerlink" title="反射机制使用场景"></a>反射机制使用场景</h5><p><img src="https://img-blog.csdnimg.cn/3a790d5d55bf44b1854eedb953c583d3.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L0p1c3RpblFpbg==,size_16,color_FFFFFF,t_70"></p>
+<h6 id="实现简单工厂模式"><a href="#实现简单工厂模式" class="headerlink" title="实现简单工厂模式"></a>实现简单工厂模式</h6><figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">实现简单工程模式的核心是创建一个工厂类，并且在内部定义了一个静态方法，传入不同的参数标识通过switch进行分组，通过new实例化创建不同的子类对象返回~</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><code>示例</code></p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建抽象产品类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">abstract</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建具体产品类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductA</span> <span class="keyword">implements</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;生产了产品A&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductB</span> <span class="keyword">implements</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;生产了产品B&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ProductC</span> <span class="keyword">implements</span> <span class="title class_">Product</span> &#123;</span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">show</span><span class="params">()</span> &#123;</span><br><span class="line">        System.out.println(<span class="string">&quot;生产了产品C&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//创建简单工厂类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleFactory</span> &#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 实现简单工厂模式</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pName 产品标识</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span> 返回具体的产品</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Product <span class="title function_">createProduct</span><span class="params">(String pName)</span>&#123;</span><br><span class="line">        <span class="keyword">switch</span> (pName)&#123;</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;A&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ProductA</span>();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;B&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ProductB</span>();</span><br><span class="line">            <span class="keyword">case</span> <span class="string">&quot;C&quot;</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ProductC</span>();</span><br><span class="line">            <span class="keyword">default</span>:</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="comment">//调用简单工厂类</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SimpleFactoryTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SimpleFactory.createProduct(<span class="string">&quot;A&quot;</span>).show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有A这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SimpleFactory.createProduct(<span class="string">&quot;B&quot;</span>).show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有B这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SimpleFactory.createProduct(<span class="string">&quot;C&quot;</span>).show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有C这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            SimpleFactory.createProduct(<span class="string">&quot;D&quot;</span>).show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有D这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h6 id="简单工厂模式的优化"><a href="#简单工厂模式的优化" class="headerlink" title="简单工厂模式的优化"></a>简单工厂模式的优化</h6><ul>
+<li><p>弊端：</p>
+<ul>
+<li>操作成本高：每增加一个接口的子类，必须修改工厂类的逻辑</li>
+<li>系统复杂性提高：每增加一个接口的子类，都必须向工厂类添加逻辑</li>
+</ul>
+</li>
+<li><p>优化思路：通过传入<code>子类全局定名（包名+类名）</code> 动态的创建不同的<code>子类对象实例</code>，从而使得在不增加产品接口子类和修改工厂类的逻辑的情况下还能实现了工厂类对子类实例对象的统一创建</p>
+</li>
+<li><p>优化步骤：</p>
+<ul>
+<li><p>创建工厂类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Factory</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Product <span class="title function_">getInstance</span><span class="params">(String className)</span> &#123;</span><br><span class="line">        <span class="type">Product</span> <span class="variable">realProduct</span> <span class="operator">=</span> <span class="literal">null</span>;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Class</span> <span class="variable">pClass</span> <span class="operator">=</span> Class.forName(className);</span><br><span class="line">            realProduct = (Product) pClass.newInstance();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> realProduct;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+<li><p>调用工厂类</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FactoryTest</span> &#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Product</span> <span class="variable">productA</span> <span class="operator">=</span> Factory.getInstance(<span class="string">&quot;com.justin.java.lang.ProductA&quot;</span>);</span><br><span class="line">            productA.show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有A这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Product</span> <span class="variable">productB</span> <span class="operator">=</span> Factory.getInstance(<span class="string">&quot;com.justin.java.lang.ProductB&quot;</span>);</span><br><span class="line">            productB.show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有B这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Product</span> <span class="variable">productC</span> <span class="operator">=</span> Factory.getInstance(<span class="string">&quot;com.justin.java.lang.ProductC&quot;</span>);</span><br><span class="line">            productC.show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (NullPointerException e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有C这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="type">Product</span> <span class="variable">productD</span> <span class="operator">=</span> Factory.getInstance(<span class="string">&quot;com.justin.java.lang.ProductD&quot;</span>);</span><br><span class="line">            productD.show();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (Exception e) &#123;</span><br><span class="line">            System.out.println(<span class="string">&quot;没有D这款产品，无法生产~&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+</ul>
+<h4 id="String、StringBuffer和StringBuilder的区别"><a href="#String、StringBuffer和StringBuilder的区别" class="headerlink" title="String、StringBuffer和StringBuilder的区别"></a>String、StringBuffer和StringBuilder的区别</h4><h5 id="String"><a href="#String" class="headerlink" title="String"></a>String</h5><p>string类是一个不可变类，一旦创建包括这个对象中的字符序列是不可改变的，直至对象被销毁</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">String</span> <span class="variable">a</span> <span class="operator">=</span> <span class="string">&quot;123&quot;</span>;</span><br><span class="line">a = <span class="string">&quot;456&quot;</span>;</span><br><span class="line"><span class="comment">// 打印出来的a为456</span></span><br><span class="line">System.out.println(a)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190616102116187.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NzeHlwcg==,size_16,color_FFFFFF,t_70"></p>
+<p>再次给a赋值时，不是对原来堆中实例对象重新赋值，而是生成新的示例对象并指向该对象，之前的实例对象任然存在，如果没有被再次引用，则会被垃圾回收。</p>
+<h5 id="StringBuffer"><a href="#StringBuffer" class="headerlink" title="StringBuffer"></a>StringBuffer</h5><p>StringBuffer对象代表一个字符序列可变的字符串，通过append()、insert()、reverse()、setCharAt()、setLength()等方法可以改变该字符串对象的字符序列，若生成了最终想要的字符串，可以调用toString()方法将其转换为String对象。</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="type">StringBuffer</span> <span class="variable">b</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>(<span class="string">&quot;123&quot;</span>);</span><br><span class="line">b.append(<span class="string">&quot;456&quot;</span>);</span><br><span class="line"><span class="comment">// b打印结果为：123456</span></span><br><span class="line">System.out.println(b);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://img-blog.csdnimg.cn/20190616102134212.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NzeHlwcg==,size_16,color_FFFFFF,t_70"></p>
+<p>StringBuffer对象没有重新生成一个对象，可以在原来对象中连接新的字符串。</p>
+<h5 id="StringBuilder"><a href="#StringBuilder" class="headerlink" title="StringBuilder"></a>StringBuilder</h5><p>StringBuilder类也代表可变字符串对象，和StringBuffer基本相似，两个类的构造器方法基本相同，不同的是：<strong>StringBuffer是线程安全的，而StringBuilder则没有实现线程安全功能，所以性能略高。</strong></p>
+<h5 id="StringBuffer是如何实现线程安全的呢？"><a href="#StringBuffer是如何实现线程安全的呢？" class="headerlink" title="StringBuffer是如何实现线程安全的呢？"></a>StringBuffer是如何实现线程安全的呢？</h5><p>StringBuffer类中实现的方法：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190616102221263.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NzeHlwcg==,size_16,color_FFFFFF,t_70"></p>
+<p>StringBuilder类中实现的方法：</p>
+<p><img src="https://img-blog.csdnimg.cn/2019061610223156.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NzeHlwcg==,size_16,color_FFFFFF,t_70"></p>
+<h5 id="Java9的改进"><a href="#Java9的改进" class="headerlink" title="Java9的改进"></a>Java9的改进</h5><p>Java9前采用char[]数组保存字符，字符串每个字符占2字节，Java9字符串采用byte[]数组再加一个encoding-flag字段保存字符，因此字符串每个字符只占1个字节，所以更节省空间，字符串功能方法也没有受到影响。</p>
+<h4 id="逻辑运算符"><a href="#逻辑运算符" class="headerlink" title="逻辑运算符"></a>逻辑运算符</h4><h5 id="位或运算符"><a href="#位或运算符" class="headerlink" title="|=位或运算符"></a>|=位或运算符</h5><p><code>|= 运算符和 += 这一类的运算符一样，拆解开就是 a = a | b</code></p>
+<p>运算规则：两数转为二进制从高位开始比较，只要有一个数为1则为1</p>
+<h5 id="amp-位与运算符"><a href="#amp-位与运算符" class="headerlink" title="&amp;=位与运算符"></a>&amp;=位与运算符</h5><p><code>&amp;= 运算符和 += 这一类的运算符一样，拆解开就是 a = a &amp; b</code></p>
+<p>运算规则：两数转为二进制从高位开始比较，两个数都为1则为1</p>
+<h5 id="位异或运算"><a href="#位异或运算" class="headerlink" title="^=位异或运算"></a>^=位异或运算</h5><p><code>^= 运算符和 += 这一类的运算符一样，拆解开就是 a = a^b</code></p>
+<p>运算规则：两个数转为二进制，然后从高位开始比较，相同为0，不同为1</p>
+<h5 id="位非运算符"><a href="#位非运算符" class="headerlink" title="~=位非运算符"></a>~=位非运算符</h5><p>运算规则：位为0则结果为1，位为1则结果为0</p>
+<h3 id="Java-Web"><a href="#Java-Web" class="headerlink" title="Java Web"></a>Java Web</h3><h4 id="Servlet"><a href="#Servlet" class="headerlink" title="Servlet"></a>Servlet</h4><p> JavaWeb 中，处理请求和发送响应的过程是由 Servlet 来完成，且其是为了解决实现动态页面而衍生的。</p>
+<h5 id="Tomcat-和-Servlet-的关系"><a href="#Tomcat-和-Servlet-的关系" class="headerlink" title="Tomcat 和 Servlet 的关系"></a>Tomcat 和 Servlet 的关系</h5><p>Tomcat 是Web应用服务器，是一个Servlet/JSP容器。 Tomcat 作为 Servlet 容器，负责处理客户请求,把请求传送给 Servlet，并将 Servlet 的响应传送回客户，而 Servlet 是一种运行在支持 Java 语言的服务器上的组件。</p>
+<h4 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h4><p>JSP（JavaServerPages）是一种动态网页开发技术。即在传统的HTML文件中插入Java代码和JSP标签，后缀名为.jsp。JSP与PHP、ASP等语言类似，都运行在服务端。通常返回给客户端的就是一个HTML文件，因此只要有浏览器就能查看JSP页面。JSP使用JSP标签在HTML网页中插入Java代码，是Servlet的扩展。</p>
+<ul>
+<li>Tomcat 将 Http 请求文本接收并解析，然后封装成 HttpServletRequest 类型的 request 对象，所有的 Http 头数据可以通过request 对象调用对应的方法查询到。</li>
+<li>Tomcat 会将要响应的信息封装为 HttpServletResponse 类型的response 对象，设置 response 属性可以控制输出到浏览器的内容，然后将 response 交给 Tomcat，Tomcat 就会将其变成响应文本的格式发送给浏览器。</li>
+</ul>
+<h5 id="ActionContext、ServletContext、pageContext的区别"><a href="#ActionContext、ServletContext、pageContext的区别" class="headerlink" title="ActionContext、ServletContext、pageContext的区别"></a>ActionContext、ServletContext、pageContext的区别</h5><h6 id="ActionContext"><a href="#ActionContext" class="headerlink" title="ActionContext"></a>ActionContext</h6><p>当前Action的上下文环境，通过其可以获取到request、session、ServletContext等与Action有关的对象的引用</p>
+<h6 id="ServletContext"><a href="#ServletContext" class="headerlink" title="ServletContext"></a>ServletContext</h6><p>域对象，即当前web应用的上下文</p>
+<h6 id="pageContext"><a href="#pageContext" class="headerlink" title="pageContext"></a>pageContext</h6><p>可以通过pageContext获取其他域对象的应用，其也是一个域对象，作用范围为当前页面，当前页面结束时销毁</p>
+<h4 id="JSP九大内置对象和四大作用域"><a href="#JSP九大内置对象和四大作用域" class="headerlink" title="JSP九大内置对象和四大作用域"></a>JSP九大内置对象和四大作用域</h4><h5 id="JSP的原理"><a href="#JSP的原理" class="headerlink" title="JSP的原理"></a>JSP的原理</h5><p><strong>jsp在编译后会转换为java类，在本质上就是一个Servlet</strong>，当浏览器访问<a target="_blank" rel="noopener" href="http://localhost:8080/index.jsp%E3%80%82%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%8F%91%E7%8E%B0%E5%90%8E%E7%BC%80%E4%B8%BA.jsp%EF%BC%8C%E5%AE%83%E4%BC%9A%E6%A0%B9%E6%8D%AE%E8%B7%AF%E5%BE%84%E6%89%BE%E5%88%B0index.jsp%E2%BD%82%E4%BB%B6%EF%BC%8C%E4%BC%9A%E5%B0%86index.jsp%E7%BF%BB%E8%AF%91%E6%88%90index_jsp.java%E2%BD%82%E4%BB%B6%EF%BC%8C%E5%AF%B9%E8%BF%99%E4%B8%AAjava%E2%BD%82%E4%BB%B6%E8%BF%9B%E2%BE%8F%E7%BC%96%E8%AF%91%EF%BC%8C%E4%BA%A7%E2%BD%A3%E2%BC%80%E4%B8%AAindex_jsp.class%E2%BD%82%E4%BB%B6%EF%BC%8C%E5%B0%86class%E2%BD%82%E4%BB%B6%E5%8A%A0%E8%BD%BD%E8%BF%90%E2%BE%8F%E3%80%82">http://localhost:8080/index.jsp。服务器发现后缀为.jsp，它会根据路径找到index.jsp⽂件，会将index.jsp翻译成index_jsp.java⽂件，对这个java⽂件进⾏编译，产⽣⼀个index_jsp.class⽂件，将class⽂件加载运⾏。</a></p>
+<h5 id="JSP九大内置对象"><a href="#JSP九大内置对象" class="headerlink" title="JSP九大内置对象"></a>JSP九大内置对象</h5><p><code>page、config、request、response、session、application、out、pageContext 、exception</code></p>
+<h6 id="page页面对象"><a href="#page页面对象" class="headerlink" title="page页面对象"></a><strong>page页面对象</strong></h6><p>代表当前JSP页面，是当前JSP编译后的Servlet类的对象。相当于this</p>
+<h6 id="config配置对象"><a href="#config配置对象" class="headerlink" title="config配置对象"></a><strong>config配置对象</strong></h6><p>主要作用是取得服务器的配置信息。通过 pageConext对象的 getServletConfig() ⽅法可以获取⼀个config对象。当⼀个Servlet 初始化时，容器把某些信息通过config对象传递给这个Servlet。</p>
+<h6 id="request请求对象"><a href="#request请求对象" class="headerlink" title="request请求对象"></a><strong>request请求对象</strong></h6><p>request对象是HttpServletRequest类型的对象。该对象代表了客户端的请求消息，主要用于接收通过HTTP协议传送到服务器的数据（包括请求头消息，请求方式，请求参数等）。request对象的作用域为一次请求(一次请求可能包含一个页面，也可能包含多个页面)。</p>
+<h6 id="response响应对象"><a href="#response响应对象" class="headerlink" title="response响应对象"></a><strong>response响应对象</strong></h6><p>response是HttpServletResponse类型的对象，代表的是客户端的响应，主要将JSP容器处理过的对象传回客户端。response对象作用域只在JSP页面内有效。</p>
+<h6 id="session会话对象"><a href="#session会话对象" class="headerlink" title="session会话对象"></a><strong>session会话对象</strong></h6><p>session 对象是由服务器⾃动创建的与⽤户请求相关的对象。服务器为每个⽤户⽣成⼀个session对象，⽤于保存该⽤户的信息，跟踪⽤户的操作状态。session对象内部使⽤Map类来保存数据，因此保存数据的格式为“Key/value”。 session对象的value可以使复杂的对象类型，⽽不仅仅局限字符串类型。</p>
+<h6 id="application全局对象"><a href="#application全局对象" class="headerlink" title="application全局对象"></a><strong>application全局对象</strong></h6><p>application对象可以将信息保存在服务器中，直到服务器关闭，否则application对象中保存的信息会在整个应用中都有效。与session对象相比，application对象生命周期更长，类似系统的 “全局变量”ServletContext。</p>
+<h6 id="out输出对象"><a href="#out输出对象" class="headerlink" title="out输出对象"></a><strong>out输出对象</strong></h6><p>out 对象用于输出JSP页面的信息，且管理应⽤服务器上的输出缓冲区。在使⽤ out 对象输出数据时，可以对数据缓冲区进⾏操作，及时清除缓冲区中残余数据，为其他输出让出缓冲空间。数据输出完毕后，要及时关闭输出流。</p>
+<h6 id="pageContext页面上下文对象"><a href="#pageContext页面上下文对象" class="headerlink" title="pageContext页面上下文对象"></a><strong>pageContext页面上下文对象</strong></h6><p>pageContext 对象的作⽤是取得任何范围的参数，通过它可以获取 JSP⻚⾯的out、request、reponse、session、application 等对象。pageContext对象的创建和初始化都是由容器来完成的，在JSP⻚⾯可以直接使⽤pageContext对象。</p>
+<h6 id="exception异常对象"><a href="#exception异常对象" class="headerlink" title="exception异常对象"></a><strong>exception异常对象</strong></h6><p>表示发生异常对象，类型 Throwable。作用域：page。</p>
+<h5 id="JSP四大作用域"><a href="#JSP四大作用域" class="headerlink" title="JSP四大作用域"></a>JSP四大作用域</h5><p><strong>JSP的四大作用域：pageContext、request、session、application</strong>。<br><strong>这四个是因为其能存储数据，所以是jsp的四大作用域</strong></p>
+<h6 id="pageContext-1"><a href="#pageContext-1" class="headerlink" title="pageContext"></a>pageContext</h6><p>把变量放到pageContext里，则它的作用域是page，变量只能在当前页面生效。</p>
+<h6 id="request"><a href="#request" class="headerlink" title="request"></a>request</h6><p>代表变量能在一次请求中生效，一次请求可能包含一个或多个页面，不同页面的跳转中都可以使用该变量。</p>
+<h6 id="session"><a href="#session" class="headerlink" title="session"></a>session</h6><p>代表变量能在一次会话中生效，所谓当前会话，就是指从用户打开浏览器开始，到用户关闭浏览器这中间的过程。</p>
+<h6 id="application"><a href="#application" class="headerlink" title="application"></a>application</h6><p>代表变量能在不同服务器下的都能够使用。列如：你用一个账号在谷歌游览器登录的CSDN后，在360，火狐…都能够登录，不用重复输入账号密码。只有当关闭了服务器或者手工删除了，才需要重新输入账号登录。</p>
+<h4 id="Jar包和War包"><a href="#Jar包和War包" class="headerlink" title="Jar包和War包"></a>Jar包和War包</h4><p><code>JAR（Java Archive，Java归档文件）</code>与平台无关的文件格式，允许将许多文件组合压缩成一个压缩文件，JavaSE程序可以打包成Jar包；JAR文件格式以流行的ZIP文件格式为基础；即Jar包是已经完成的一些类，然后将其打包，可以将这些Jar包引入项目中。直接使用这些Jar包中的类和属性；Jar包一般放在lib目录下</p>
+<p><code>WAR</code>是一个可以直接运行的web模块，常用于网站，打成包部署到容器中；以Tomcat为例，将War包放置在\webapps\目录下，然后启动Tomcat，该包会自动解压，相当于发布。</p>
+<p>War包文件按照一定目录结构组织，根据其根目录下包含有html和jsp文件，或者包含有这两种文件的目录，另外还有WEB-INF目录，通常WEB-INF目录下含有一个web.xml文件和一个classes目录；web.xml是应用的配置文件，而classes目录则包含编译好的servlet类和jsp，或servlet所依赖的其他类（如JavaBean），通常这些所依赖的类也可以打包成jar包放在WEB-INF下的lib目录下，一个war包可以理解为是一个web项目，里面是项目的所有东西。</p>
+<h5 id="两者区别"><a href="#两者区别" class="headerlink" title="两者区别"></a>两者区别</h5><p>WAR文件代表了一个Web应用程序，JAR是类的归档文件</p>
+<p>WAR文件和JAR文件的文件格式是一样的，并且都是使用jar命令来创建</p>
+<p>在开发阶段不适合使用WAR文件，因为在开发阶段，经常需要添加或删除Web应用程序的内容，更新 Servlet类文件，而每一次改动后，重新建立WAR文件将是一件浪费时间的事情。在产品发布阶段，使用WAR文件是比较合适的，因为在这个时候，几乎不需要再做什么改动了</p>
+<p>在开发阶段，通常将Servlet源文件放到Web应用程序目录的src子目录下，以便和Web资源文件区分。在建立WAR文件时，只需要将src目录从Web应用程序目录中移走，就可以打包了</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="https://danyfield.github.io">dany</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="https://danyfield.github.io/2023/02/03/Java%E7%AC%94%E8%AE%B0/">https://danyfield.github.io/2023/02/03/Java笔记/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://danyfield.github.io" target="_blank">dany's blog</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Java/">Java</a></div><div class="post_share"><div class="social-share" data-image="/img/avatar.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/sharejs/dist/js/social-share.min.js" defer></script></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/avatar.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">dany</div><div class="author-info__description">乐园还未到达，脚步怎能停下</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">22</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">10</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/danyfield"><i class="fab fa-github"></i><span>Follow Me</span></a></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Java%E5%9F%BA%E7%A1%80"><span class="toc-number">1.</span> <span class="toc-text">Java基础</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JDK-JRE-JVM"><span class="toc-number">1.1.</span> <span class="toc-text">JDK JRE JVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-number">1.2.</span> <span class="toc-text">数据类型</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9D%83%E9%99%90%E4%BF%AE%E9%A5%B0%E7%AC%A6"><span class="toc-number">1.3.</span> <span class="toc-text">权限修饰符</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8"><span class="toc-number">1.4.</span> <span class="toc-text">构造器</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%9E%84%E9%80%A0%E5%99%A8"><span class="toc-number">1.4.1.</span> <span class="toc-text">什么是构造器</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E7%9A%84%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9"><span class="toc-number">1.4.2.</span> <span class="toc-text">构造器的注意事项</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%99%A8%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">1.4.3.</span> <span class="toc-text">构造器的使用</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B"><span class="toc-number">1.5.</span> <span class="toc-text">泛型</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E6%9C%AC%E8%B4%A8"><span class="toc-number">1.5.1.</span> <span class="toc-text">泛型的本质</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E4%BD%BF%E7%94%A8%E6%B3%9B%E5%9E%8B"><span class="toc-number">1.5.2.</span> <span class="toc-text">为什么使用泛型</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB"><span class="toc-number">1.5.3.</span> <span class="toc-text">泛型类</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3"><span class="toc-number">1.5.4.</span> <span class="toc-text">泛型接口</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-number">1.5.5.</span> <span class="toc-text">泛型方法</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%B3%9B%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6"><span class="toc-number">1.5.6.</span> <span class="toc-text">泛型通配符</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6"><span class="toc-number">1.6.</span> <span class="toc-text">反射机制</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%8F%8D%E5%B0%84%E6%9C%BA%E5%88%B6%E4%BD%BF%E7%94%A8%E5%9C%BA%E6%99%AF"><span class="toc-number">1.6.1.</span> <span class="toc-text">反射机制使用场景</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.6.1.1.</span> <span class="toc-text">实现简单工厂模式</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#%E7%AE%80%E5%8D%95%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F%E7%9A%84%E4%BC%98%E5%8C%96"><span class="toc-number">1.6.1.2.</span> <span class="toc-text">简单工厂模式的优化</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#String%E3%80%81StringBuffer%E5%92%8CStringBuilder%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">1.7.</span> <span class="toc-text">String、StringBuffer和StringBuilder的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#String"><span class="toc-number">1.7.1.</span> <span class="toc-text">String</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#StringBuffer"><span class="toc-number">1.7.2.</span> <span class="toc-text">StringBuffer</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#StringBuilder"><span class="toc-number">1.7.3.</span> <span class="toc-text">StringBuilder</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#StringBuffer%E6%98%AF%E5%A6%82%E4%BD%95%E5%AE%9E%E7%8E%B0%E7%BA%BF%E7%A8%8B%E5%AE%89%E5%85%A8%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="toc-number">1.7.4.</span> <span class="toc-text">StringBuffer是如何实现线程安全的呢？</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Java9%E7%9A%84%E6%94%B9%E8%BF%9B"><span class="toc-number">1.7.5.</span> <span class="toc-text">Java9的改进</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.8.</span> <span class="toc-text">逻辑运算符</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%8D%E6%88%96%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.8.1.</span> <span class="toc-text">|&#x3D;位或运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#amp-%E4%BD%8D%E4%B8%8E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.8.2.</span> <span class="toc-text">&amp;&#x3D;位与运算符</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%8D%E5%BC%82%E6%88%96%E8%BF%90%E7%AE%97"><span class="toc-number">1.8.3.</span> <span class="toc-text">^&#x3D;位异或运算</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%8D%E9%9D%9E%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">1.8.4.</span> <span class="toc-text">~&#x3D;位非运算符</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Java-Web"><span class="toc-number">2.</span> <span class="toc-text">Java Web</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Servlet"><span class="toc-number">2.1.</span> <span class="toc-text">Servlet</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Tomcat-%E5%92%8C-Servlet-%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="toc-number">2.1.1.</span> <span class="toc-text">Tomcat 和 Servlet 的关系</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JSP"><span class="toc-number">2.2.</span> <span class="toc-text">JSP</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#ActionContext%E3%80%81ServletContext%E3%80%81pageContext%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="toc-number">2.2.1.</span> <span class="toc-text">ActionContext、ServletContext、pageContext的区别</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ActionContext"><span class="toc-number">2.2.1.1.</span> <span class="toc-text">ActionContext</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ServletContext"><span class="toc-number">2.2.1.2.</span> <span class="toc-text">ServletContext</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#pageContext"><span class="toc-number">2.2.1.3.</span> <span class="toc-text">pageContext</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#JSP%E4%B9%9D%E5%A4%A7%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1%E5%92%8C%E5%9B%9B%E5%A4%A7%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">2.3.</span> <span class="toc-text">JSP九大内置对象和四大作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#JSP%E7%9A%84%E5%8E%9F%E7%90%86"><span class="toc-number">2.3.1.</span> <span class="toc-text">JSP的原理</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#JSP%E4%B9%9D%E5%A4%A7%E5%86%85%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.</span> <span class="toc-text">JSP九大内置对象</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#page%E9%A1%B5%E9%9D%A2%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.1.</span> <span class="toc-text">page页面对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#config%E9%85%8D%E7%BD%AE%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.2.</span> <span class="toc-text">config配置对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#request%E8%AF%B7%E6%B1%82%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.3.</span> <span class="toc-text">request请求对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#response%E5%93%8D%E5%BA%94%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.4.</span> <span class="toc-text">response响应对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#session%E4%BC%9A%E8%AF%9D%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.5.</span> <span class="toc-text">session会话对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#application%E5%85%A8%E5%B1%80%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.6.</span> <span class="toc-text">application全局对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#out%E8%BE%93%E5%87%BA%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.7.</span> <span class="toc-text">out输出对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#pageContext%E9%A1%B5%E9%9D%A2%E4%B8%8A%E4%B8%8B%E6%96%87%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.8.</span> <span class="toc-text">pageContext页面上下文对象</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#exception%E5%BC%82%E5%B8%B8%E5%AF%B9%E8%B1%A1"><span class="toc-number">2.3.2.9.</span> <span class="toc-text">exception异常对象</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#JSP%E5%9B%9B%E5%A4%A7%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">2.3.3.</span> <span class="toc-text">JSP四大作用域</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#pageContext-1"><span class="toc-number">2.3.3.1.</span> <span class="toc-text">pageContext</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#request"><span class="toc-number">2.3.3.2.</span> <span class="toc-text">request</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#session"><span class="toc-number">2.3.3.3.</span> <span class="toc-text">session</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#application"><span class="toc-number">2.3.3.4.</span> <span class="toc-text">application</span></a></li></ol></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jar%E5%8C%85%E5%92%8CWar%E5%8C%85"><span class="toc-number">2.4.</span> <span class="toc-text">Jar包和War包</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%B8%A4%E8%80%85%E5%8C%BA%E5%88%AB"><span class="toc-number">2.4.1.</span> <span class="toc-text">两者区别</span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/07/mysql%E7%AC%94%E8%AE%B0/" title="mysql笔记">mysql笔记</a><time datetime="2023-02-07T13:09:17.000Z" title="发表于 2023-02-07 21:09:17">2023-02-07</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/03/elasticsearch%E7%AC%94%E8%AE%B0/" title="elasticsearch笔记">elasticsearch笔记</a><time datetime="2023-02-03T07:33:59.000Z" title="发表于 2023-02-03 15:33:59">2023-02-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/03/%E5%A0%86%E6%A0%88future/" title="堆栈future">堆栈future</a><time datetime="2023-02-03T07:33:37.000Z" title="发表于 2023-02-03 15:33:37">2023-02-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/03/%E4%B8%9A%E5%8A%A1%E9%97%AE%E9%A2%98/" title="业务问题">业务问题</a><time datetime="2023-02-03T07:14:05.000Z" title="发表于 2023-02-03 15:14:05">2023-02-03</time></div></div><div class="aside-list-item no-cover"><div class="content"><a class="title" href="/2023/02/03/%E4%BC%81%E4%B8%9A%E6%80%BB%E7%BB%93/" title="企业总结">企业总结</a><time datetime="2023-02-03T07:13:53.000Z" title="发表于 2023-02-03 15:13:53">2023-02-03</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2023 By dany</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div></div></div><div id="search-mask"></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui/dist/fancybox.umd.min.js"></script><script src="/js/search/local-search.js"></script><div class="js-pjax"></div><script src="/js/jquery.js"></script><script src="/js/foot.js"></script><div class="aplayer no-destroy" data-id="8798117783" data-server="tencent" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="false" muted></div><script id="canvas_nest" defer="defer" color="127,255,212" opacity="0.8" zIndex="-1" count="99" mobile="false" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/dist/canvas-nest.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener scroll 
+  window.tocScrollFn && window.removeEventListener('scroll', window.tocScrollFn)
+  window.scrollCollect && window.removeEventListener('scroll', scrollCollect)
+
+  document.getElementById('rightside').style.cssText = "opacity: ''; transform: ''"
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof chatBtnFn === 'function' && chatBtnFn()
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', (e) => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
