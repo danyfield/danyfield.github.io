@@ -624,7 +624,7 @@ elasticsearch启动后使用docker ps查看发现未正常启动，查看启动�
 
 `docker logs elasticsearch`
 
-![img](https://upload-images.jianshu.io/upload_images/23507229-dbe6ad70a59f98cd.png?imageMogr2/auto-orient/strip|imageView2/2/w/1200/format/webp)
+![](https://s1.ax1x.com/2023/02/17/pSqCzhn.png)
 
 发现是文件拒绝访问异常,为该文件夹设置所有用户都有读写执行权限
 
