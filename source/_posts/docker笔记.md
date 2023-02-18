@@ -488,17 +488,19 @@ docker pull mysql
 ##### 启动mysql实例
 
 ```
-docker run --name mysql_Docker -p 13306:3306 -v /mydata/mysql/log:/var/log/mysql -v /mydata/mysql/data:/var/lib/mysql -v /mydata/mysql/conf:/etc/mysql -e MYSQL_ROOT_PASSWARD=root -d mysql
+docker run -d -p 13306:3306 -v /usr/local/mysql/conf:/etc/mysql/conf.d 
+-v /usr/local/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=root --name  mysql mysql
+
 
 # --name为mysql的实例设置别名	-p 13306对外暴露的端口，3306内部端口
 # -e MYSQL_ROOT_PASSWORD 初始化设置mysql登录密码 -d 表示后台运行
 # 最后的mysql是镜像名称		-v为挂载（etc为配置文件，log为日志文件，lib为配置文件，将mysql容器内部文件挂载到linux中，每次变动都会在linux显示，而不用进入到容器内部查看）
 ```
 
-##### 进入容器内部(mysql_Docker为容器名字)
+##### 进入容器内部(mysql为容器名字)
 
 ```
-docker exec -it mysql_Docker bash
+docker exec -it mysql bash
 ```
 
 ##### 登录mysql
@@ -650,7 +652,7 @@ cd /usr/local
 wget https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_linux-x64_bin.tar.gz
 
 # 解压
-tar -zxvf tar -zxvf jdk-9.0.1_linux-x64_bin.tar.gz 
+tar -zxvf jdk-9.0.1_linux-x64_bin.tar.gz 
 
 # 配置JAVA_HOME
 vim /etc/profile
