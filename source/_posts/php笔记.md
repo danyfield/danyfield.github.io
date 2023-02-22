@@ -729,3 +729,62 @@ echo $response;
 
 1. 将回调函数像参数一样传入库函数，改变传进库函数的参数可以实现不同的功能，且无需修改库函数的实现，实现了解耦
 2. 主函数和回调函数在同一层，库函数在另外一层，如果库函数不可见，则只能传入不同的回调函数
+
+### Session
+
+在`php.ini`配置文件中修改三个配置：
+
+- session.use_cookies
+
+  把该值设置为1，利用cookie传递sessionid
+
+- session.cookie_lifetime
+
+  表示`SessionID`在客户端`Cookie`储存的时间（秒），默认为0，代表浏览器一关闭SessionID就作废，将它设置为自定义如：`86400`即`1天`
+
+- session.gc_maxlifetime
+
+  该值为Session在服务器端储存的时间，若超过这个时间，则Session数据自动删除，默认为1440即24分钟，也可以设置为86400即1天
+
+- session.save_path
+
+  session文件保存路径，linux默认`var/lib/php/session`，Windows需要配置并创建对应目录，如`D:/php/php7.4/tmp`
+
+超过设置的时间后gc并不一定会工作，gc启动的概率为`session.gc_probaility / session.gc_divisor`，默认为`1/100`
+
+#### 通过php修改失效时间
+
+```php
+<?php
+$lifeTime = 24 * 3600;
+session_set_cookie_params($lifeTime);
+    
+session_start();
+$_SESSION["username"] = "peter";
+echo "登记的用户名为：".$_SESSION["username"];
+?>
+```
+
+#### 通过php修改gc_maxlifetime
+
+```php
+<?php
+$LifeTime = 3600;
+$DirectoryPath = "./tmp";
+is_dir($DirectoryPath) or mkdir($DirectoryPath,0777);
+
+//是否开启基于url传递sessionid,这里是不开启，发现开启也要关闭掉
+if(ini_get("session.use_trans_sid") == true){
+    ini_set("url_rewriter.tags","");
+    ini_set("session.use_trans_sid",false);
+}
+ini_set("session.gc_maxlifetime",$Lifetime);	//设置session生存时间
+ini_set("session.gc_divisor","1");
+ini_set("session.gc_probability","1");
+ini_set("session.cookie_lifetime", "0");//sessionID在cookie中的生存时间
+ini_set("session.save_path", $DirectoryPath);//session文件存储的路径
+session_start();
+?>
+```
+
+若网站自定义了`session_save_path`，则需要给`session.gc_probability`设置值，否则的话，session产生的sessionID永远不会被删除
