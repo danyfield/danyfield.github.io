@@ -2,7 +2,7 @@
 title: elasticsearch笔记
 date: 2023-02-03 15:33:59
 tags: "es"
-categories: "es"
+categories: "数据库"
 ---
 
 #### 检查集群的健康状况

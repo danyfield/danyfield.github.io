@@ -1,7 +1,7 @@
 ---
 title: butterfly主题扩展
 date: 2023-01-30 09:01:38
-tags: "butterfly"
+tags: "hexo"
 categories: "hexo"
 ---
 

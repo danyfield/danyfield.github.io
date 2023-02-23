@@ -1,8 +1,8 @@
 ---
 title: mysql笔记
 date: 2023-02-07 21:09:17
-tags: "数据库"
-categories: "mysql"
+tags: "mysql"
+categories: "数据库"
 ---
 
 ## 基础篇

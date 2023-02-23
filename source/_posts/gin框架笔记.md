@@ -1,7 +1,7 @@
 ---
 title: gin框架笔记
 date: 2023-02-03 13:22:02
-tags: "gin"
+tags: "go"
 categories: "go"
 ---
 
