@@ -671,3 +671,98 @@ export PATH=$PATH:$JAVA_HOME/bin:$JRE_HOME/bin
 # 执行 source /etc/profile再次查看java版本即可
 ```
 
+### 连接docker中的redis
+
+#### 主要步骤
+
+##### 拉取镜像
+
+`docker pull redis`
+
+##### 挂载配置文件
+
+```
+mkdir -p /home/redis/myredis
+cd /home/redis/myredis
+mkdir data
+vim redis.conf
+```
+
+```
+# bind 192.168.1.100 10.0.0.1
+# bind 127.0.0.1 ::1
+# bind 127.0.0.1
+# redis.conf
+
+protected-mode no
+port 6379
+tcp-backlog 511
+requirepass 123456					#设置密码
+timeout 0
+tcp-keepalive 300
+daemonize no
+supervised no
+pidfile /var/run/redis_6379.pid
+loglevel notice
+logfile ""
+databases 30
+always-show-logo yes
+save 900 1
+save 300 10
+save 60 10000
+stop-writes-on-bgsave-error yes
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+dir ./
+replica-serve-stale-data yes
+replica-read-only yes
+repl-diskless-sync no
+repl-disable-tcp-nodelay no
+replica-priority 100
+lazyfree-lazy-eviction no
+lazyfree-lazy-expire no
+lazyfree-lazy-server-del no
+replica-lazy-flush no
+appendonly yes						#开启redis持久化
+appendfilename "appendonly.aof"
+no-appendfsync-on-rewrite no
+auto-aof-rewrite-percentage 100
+auto-aof-rewrite-min-size 64mb
+aof-load-truncated yes
+aof-use-rdb-preamble yes
+lua-time-limit 5000
+slowlog-max-len 128
+notify-keyspace-events ""
+hash-max-ziplist-entries 512
+hash-max-ziplist-value 64
+list-max-ziplist-size -2
+list-compress-depth 0
+set-max-intset-entries 512
+zset-max-ziplist-entries 128
+zset-max-ziplist-value 64
+hll-sparse-max-bytes 3000
+stream-node-max-bytes 4096
+stream-node-max-entries 100
+activerehashing yes
+hz 10
+dynamic-hz yes
+aof-rewrite-incremental-fsync yes
+rdb-save-incremental-fsync yes
+```
+
+##### 启动redis容器
+
+`docker run --restart=always --log-opt max-file=2 -p 6379:6379 --name myredis -v /home/redis/myredis/myredis.conf:/etc/redis/redis.conf -v /home/redis/myredis/data:/data -d redis redis-server /etc/redis/redis.conf --appendonly yes --requirepass 123456 `
+
+##### 进入容器内部测试
+
+`docker exec -it myredis redis-cli`
+
+`auth 123456`
+
+`ping`
+
+#### 注意事项
+
+在启动redis时不要修改防火墙，可能会出现报错
