@@ -512,8 +512,7 @@ mysql -u root -p root
 ##### 创建用户授予权限
 
 ```
-create user test@'%' identified by '123456';
-grant all on *.* to test@'%';
+grant all on *.* to root@'%';
 flush privileges;	#刷新权限
 ```
 
