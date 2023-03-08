@@ -59,14 +59,14 @@ categories: "docker"
 
 ```
 #1.卸载旧版本
-yum install docker \
-				  docker-client \
-                  docker-client-latest \
-                  docker-common \
-                  docker-latest \
-                  docker-latest-logrotate \
-                  docker-logrotate \
-                  docker-engine
+yum remove docker \
+                   docker-client \
+                   docker-client-latest \
+                   docker-common \
+                   docker-latest \
+                   docker-latest-logrotate \
+                   docker-logrotate \
+                   docker-engine
 
 #2.需要的安装包
 yum install -y yum-utils

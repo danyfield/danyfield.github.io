@@ -1498,231 +1498,122 @@ fmt.Println(name)
 fmt.Println(newName)
 ```
 
-### Strings
+### strings 和 strconv
+
+对于字符串的预定义处理函数
+
+#### 前缀和后缀
+
+`HasPrefix()`判断字符串`s`是否以`prefix`开头
+
+`HasSuffix()` 判断字符串 `s` 是否以 `suffix` 结尾
 
 ```go
-/*
-func Compare(a, b string) int
-func Contains(s, substr string) bool
-func ContainsAny(s, chars string) bool
-func ContainsRune(s string, r rune) bool
-func Count(s, substr string) int
-func EqualFold(s, t string) bool
-func Fields(s string) []string
-func FieldsFunc(s string, f func(rune) bool) []string
-func HasPrefix(s, prefix string) bool
-func HasSuffix(s, suffix string) bool
-func Index(s, substr string) int
-func IndexAny(s, chars string) int
-func IndexByte(s string, c byte) int
-func IndexFunc(s string, f func(rune) bool) int
-func IndexRune(s string, r rune) int
-func Join(elems []string, sep string) string
-func LastIndex(s, substr string) int
-func LastIndexAny(s, chars string) int
-func LastIndexByte(s string, c byte) int
-func LastIndexFunc(s string, f func(rune) bool) int
-func Map(mapping func(rune) rune, s string) string
-func Repeat(s string, count int) string
-func Replace(s, old, new string, n int) string
-func ReplaceAll(s, old, new string) string
-func Split(s, sep string) []string
-func SplitAfter(s, sep string) []string
-func SplitAfterN(s, sep string, n int) []string
-func SplitN(s, sep string, n int) []string
-func Title(s string) string
-func ToLower(s string) string
-func ToLowerSpecial(c unicode.SpecialCase, s string) string
-func ToTitle(s string) string
-func ToTitleSpecial(c unicode.SpecialCase, s string) string
-func ToUpper(s string) string
-func ToUpperSpecial(c unicode.SpecialCase, s string) string
-func ToValidUTF8(s, replacement string) string
-func Trim(s, cutset string) string
-func TrimFunc(s string, f func(rune) bool) string
-func TrimLeft(s, cutset string) string
-func TrimLeftFunc(s string, f func(rune) bool) string
-func TrimPrefix(s, prefix string) string
-func TrimRight(s, cutset string) string
-func TrimRightFunc(s string, f func(rune) bool) string
-func TrimSpace(s string) string
-func TrimSuffix(s, suffix string) string
-type Builder
-	func (b *Builder) Cap() int
-	func (b *Builder) Grow(n int)
-	func (b *Builder) Len() int
-	func (b *Builder) Reset()
-	func (b *Builder) String() string
-	func (b *Builder) Write(p []byte) (int, error)
-	func (b *Builder) WriteByte(c byte) error
-	func (b *Builder) WriteRune(r rune) (int, error)
-	func (b *Builder) WriteString(s string) (int, error)
-type Reader
-	func NewReader(s string) *Reader
-	func (r *Reader) Len() int
-	func (r *Reader) Read(b []byte) (n int, err error)
-	func (r *Reader) ReadAt(b []byte, off int64) (n int, err error)
-	func (r *Reader) ReadByte() (byte, error)
-	func (r *Reader) ReadRune() (ch rune, size int, err error)
-	func (r *Reader) Reset(s string)
-	func (r *Reader) Seek(offset int64, whence int) (int64, error)
-	func (r *Reader) Size() int64
-	func (r *Reader) UnreadByte() error
-	func (r *Reader) UnreadRune() error
-	func (r *Reader) WriteTo(w io.Writer) (n int64, err error)
-type Replacer
-	func NewReplacer(oldnew ...string) *Replacer
-	func (r *Replacer) Replace(s string) string
-	func (r *Replacer) WriteString(w io.Writer, s string) (n int, err error)
-Bugs
-*/
-
+strings.HasPrefix(s, prefix string) bool
+strings.HasSuffix(s, suffix string) bool
 ```
+
+#### 字符串包含关系
+
+`Contains()` 判断字符串 `s` 是否包含 `substr`
 
 ```go
-func main() {
-    /*
-    	Compare返回一个按字典顺序比较两个字符串的整数，若a == b则为0；若为a < b，结果为-1；若a > b则为1
-    	func Compare(a,b string) int
-    */
-    
-    /*
-    	判断substr是否在s之内
-    	func Contains(s,substr string) bool {
-    		return Index(s,substr) >= 0
-    	}
-    */
-    
-    /*
-    	Count计算s中substr的非重叠实例的数量，若substr是一个空字符串，则Count返回1+s中的Unicode代码点数
-    	func Count(s,substr string) int {
-    		if len(substr) == 0 {
-    			return utf8.RuneCountInString(s) + 1
-    		}
-    		if len(substr) == 1 {
-    			return bytealog.CountString(s,substr[0])
-    		}
-    		n := 0
-    		for {
-    			i := Index(s,substr)
-    			if i == -1 {return n}
-    			n++
-    			s = s[i+len(substr):]
-    		}
-    	}
-    */
-    
-    /*
-    	Cap方法返回字节数组分配的内存空间大小
-    	func (b *Builder) Cap() int
-    	
-    	Grow方法扩展buf数组的分配内存的大小
-    	func (b *Builder) Grow(n int)
-    	
-    	Reset方法清空b的所有内容
-    	func (b *Builder) Reset() {
-    		b.addr = nil
-    		b.buf = nil
-    	}
-    	
-    	String方法将b的数据以string类型返回
-    	func (b *Builder) String() string {
-    		return *(*string)(unsafe.Pointer(&b.buf))
-    	}
-    */
-    b := strings.Builder{}
-	_ = b.WriteByte('7')
-	fmt.Println(b.String())
-}
-
+strings.Contains(s, substr string) bool
 ```
 
-### Strconv
-
-主要提供不同数据类型相互转换的函数和方法
+`Index()` 返回字符串 `str` 在字符串 `s` 中的索引（`str` 的第一个字符的索引），`-1` 表示字符串 `s` 不包含字符串 `str`
 
 ```go
-/*
-Constants
-Variables
-func AppendBool(dst []byte, b bool) []byte
-func AppendFloat(dst []byte, f float64, fmt byte, prec, bitSize int) []byte
-func AppendInt(dst []byte, i int64, base int) []byte
-func AppendQuote(dst []byte, s string) []byte
-func AppendQuoteRune(dst []byte, r rune) []byte
-func AppendQuoteRuneToASCII(dst []byte, r rune) []byte
-func AppendQuoteRuneToGraphic(dst []byte, r rune) []byte
-func AppendQuoteToASCII(dst []byte, s string) []byte
-func AppendQuoteToGraphic(dst []byte, s string) []byte
-func AppendUint(dst []byte, i uint64, base int) []byte
-func Atoi(s string) (int, error)
-func CanBackquote(s string) bool
-func FormatBool(b bool) string
-func FormatComplex(c complex128, fmt byte, prec, bitSize int) string
-func FormatFloat(f float64, fmt byte, prec, bitSize int) string
-func FormatInt(i int64, base int) string
-func FormatUint(i uint64, base int) string
-func IsGraphic(r rune) bool
-func IsPrint(r rune) bool
-func Itoa(i int) string
-func ParseBool(str string) (bool, error)
-func ParseComplex(s string, bitSize int) (complex128, error)
-func ParseFloat(s string, bitSize int) (float64, error)
-func ParseInt(s string, base int, bitSize int) (i int64, err error)
-func ParseUint(s string, base int, bitSize int) (uint64, error)
-func Quote(s string) string
-func QuoteRune(r rune) string
-func QuoteRuneToASCII(r rune) string
-func QuoteRuneToGraphic(r rune) string
-func QuoteToASCII(s string) string
-func QuoteToGraphic(s string) string
-func Unquote(s string) (string, error)
-func UnquoteChar(s string, quote byte) (value rune, multibyte bool, tail string, err error)
-type NumError
-	func (e *NumError) Error() string
-	func (e *NumError) Unwrap() error
-*/
-
+strings.Index(s, str string) int
 ```
+
+`LastIndex()` 返回字符串 `str` 在字符串 `s` 中最后出现位置的索引（`str` 的第一个字符的索引），`-1` 表示字符串 `s` 不包含字符串 `str`
 
 ```go
-func main(){
-    /*
-    	AppendBool根据b的值将"true"或"false"附加到dst返回扩展缓冲区
-    *func AppendBool(dst []byte,b bool) []byte {
-    	if b {
-    		return append(dst, "true"...)
-    	}
-    	return append(dst, "false"...)
-    }
-    */
-    b := []byte("bool:")
-    b = strconv.AppendBool(b,true)
-    fmt.Println(string(b))
-    
-    /*
-    	FormatBool根据b的值返回"true"或"false"
-    *func FormatBool(b bool) string
-    
-    	Itoa等效于FormatInt(int64(i),10)
-    *func Itoa(i int) string
-    */
-    
-    /*
-    	NumError记录转换失败
-    *func (e *NumError) Error() string
-    */
-    str := "Not a number"
-    if _,err := strconv.ParseFloat(str,64); err != nil {
-        e := err.(*strconv.NumError)
-        fmt.Println("Func:", e.Func)
-		fmt.Println("Num:", e.Num)
-		fmt.Println("Err:", e.Err)
-		fmt.Println(err)
-    }
-}
-
+strings.LastIndex(s, str string) int
 ```
+
+若要查询非 ASCII 编码的字符在父字符串中的位置，建议使用以下函数定位
+
+```go
+strings.IndexRune(s string, r rune) int
+```
+
+#### 字符串替换
+
+`Replace()` 用于将字符串 `str` 中的前 `n` 个字符串 `old` 替换为字符串 `new`，并返回一个新的字符串，如果 `n = -1` 则替换所有字符串 `old` 为字符串 `new`
+
+```go
+strings.Replace(str, old, new string, n int) string
+```
+
+#### 字符串出现次数
+
+`Count()` 用于计算字符串 `str` 在字符串 `s` 中出现的非重叠次数
+
+```go
+strings.Count(s, str string) int
+```
+
+#### 重复字符串
+
+`Repeat()` 用于重复 `count` 次字符串 `s` 并返回一个新的字符串
+
+```go
+strings.Repeat(s, count int) string
+```
+
+#### 修改字符串大小写
+
+`ToLower()` 将字符串中的 Unicode 字符全部转换为相应的小写字符
+
+`ToUpper()` 将字符串中的 Unicode 字符全部转换为相应的大写字符
+
+```go
+strings.ToLower(s) string
+strings.ToUpper(s) string
+```
+
+#### 修剪字符串
+
+使用 `strings.TrimSpace(s)` 来剔除字符串开头和结尾的空白符号；若想剔除指定字符，可以使用 `strings.Trim(s, "cut")` 来将开头和结尾的 `cut` 去除掉。该函数的第二个参数可以包含任何字符，若只想剔除开头或者结尾的字符串，则可以使用 `TrimLeft()` 或者 `TrimRight()` 来实现
+
+#### 分割字符串
+
+`strings.Fields(s)` 将会利用 1 个或多个空白符号来作为动态长度的分隔符将字符串分割成若干小块，并返回一个 slice，如果字符串只包含空白符号，则返回一个长度为 0 的 slice
+
+`strings.Split(s, sep)` 用于自定义分割符号进行分割，同样返回 slice
+
+因为这 2 个函数都会返回 slice，所以习惯使用 for-range 循环来对其进行处理
+
+#### 拼接slice到字符串
+
+`Join()` 用于将元素类型为 string 的 slice 用分割符号来拼接组成一个字符串
+
+```go
+strings.Join(sl []string, sep string) string
+```
+
+#### 从字符串中读取内容
+
+ `strings.NewReader(str)` 用于生成一个 `Reader` 并读取字符串中的内容，然后返回指向该 `Reader` 的指针，从其它类型读取内容的函数还有：
+
+- `Read()` 从 `[]byte` 中读取内容
+- `ReadByte()` 和 `ReadRune()` 从字符串中读取下一个 `byte` 或者 `rune`
+
+#### 字符串与其它类型的转换
+
+与字符串相关的类型转换都是通过 `strconv` 包实现的，任何类型`T`转换为字符串总是成功的
+
+针对从数字类型转换到字符串，Go 提供了以下函数：
+
+- `strconv.Itoa(i int) string` 返回数字 `i` 表示的字符串类型的十进制数
+- `strconv.FormatFloat(f float64, fmt byte, prec int, bitSize int) string`将 64 位浮点型的数字转换为字符串，其中 `fmt` 表示格式（其值可以是 `'b'`、`'e'`、`'f'` 或 `'g'`），`prec` 表示精度，`bitSize` 则使用 32 表示 `float32`，用 64 表示 `float64`
+
+针对从字符串类型转换为数字类型，Go 提供了以下函数：
+
+- `strconv.Atoi(s string) (i int, err error)` 将字符串转换为 `int` 型
+- `strconv.ParseFloat(s string, bitSize int) (f float64, err error)` 将字符串转换为 `float64` 型
 
 ### IO
 
